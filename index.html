@@ -522,12 +522,12 @@ footer {
 
     <!-- 国庆黄金周警示 -->
     <div style="max-width:760px; margin:0 auto 28px; padding:16px 20px; background:rgba(220,38,38,0.12); border:1px solid rgba(220,38,38,0.4); border-radius:12px; color:#fecaca; font-size:0.95rem; text-align:left;">
-      <strong style="color:#fca5a5;">⚠️ 国庆黄金周特别提醒：</strong>10/1-10/7 是新疆旅游全年最高峰，必须提前 <strong>60 天</strong>预订租车 + 酒店 + 景区门票 + 来回大交通。租车价格约比平时上浮 <strong>40-60%</strong>，热门民宿（喀赞其、那拉提毡房）会提前 90 天售罄。建议错峰：10/1-10/2 在乌鲁木齐过渡，10/3 后再前往热门景区。10 月初昼夜温差大（白天 15℃ / 夜晚 0℃），高海拔已开始下雪，<strong>独库公路可能突发封闭</strong>，需备保暖衣 + B 计划。
+      <strong style="color:#fca5a5;">⚠️ 国庆黄金周特别提醒：</strong>10/1-10/7 是新疆旅游全年最高峰，必须提前 <strong>60 天</strong>预订租车 + 酒店 + 往返机票。租车价格约比平时上浮 <strong>40-60%</strong>，热门酒店（吐鲁番丽橙、哈密万兴）会提前 60 天售罄。建议错峰：10/1-10/2 在乌鲁木齐过渡（人相对少），10/3 起再前往吐鲁番/哈密。10 月初东疆昼夜温差大（白天 18℃ / 夜晚 5℃），<strong>巴里坤草原已开始变黄但仍壮观</strong>，备保暖衣 + 防晒霜。
     </div>
 
     <div class="tabs">
       <button class="tab-btn plan-a" data-plan="A" onclick="switchPlan('A')">方案 A · 5天精华 (10/1-10/5)</button>
-      <button class="tab-btn active plan-b" data-plan="B" onclick="switchPlan('B')">方案 B · 7天伊犁 (10/1-10/7) ⭐</button>
+      <button class="tab-btn active plan-b" data-plan="B" onclick="switchPlan('B')">方案 B · 7天东疆环线 (10/1-10/7) ⭐</button>
     </div>
   </div>
 </header>
@@ -707,89 +707,75 @@ footer {
         </g>
       </g>
 
-      <!-- ============ 方案 B 路线 ============ -->
+      <!-- ============ 方案 B 路线（东疆环线） ============ -->
       <g id="plan-b-svg">
-        <!-- D1: 乌鲁木齐 → 伊宁（飞机） -->
-        <path d="M 640 260 Q 380 220 130 270" stroke="#ef4444" stroke-width="2.2" stroke-dasharray="2,7" fill="none" opacity="0.8"/>
-        <!-- 飞机图标 -->
-        <text x="380" y="218" text-anchor="middle" font-size="18" fill="#ef4444">✈</text>
-        <g class="route-pill" transform="translate(380, 248)">
-          <rect x="-58" y="-12" width="116" height="22" rx="11" fill="rgba(15,23,42,0.95)" stroke="#ef4444" stroke-width="1.5"/>
-          <text text-anchor="middle" dy="4" fill="#fecaca" font-size="11" font-weight="600">飞行1h · 不开车</text>
+        <!-- D2/D7: UR ↔ 吐鲁番（去返同路） -->
+        <path d="M 640 270 Q 740 290 820 350" stroke="#3b82f6" stroke-width="3" stroke-dasharray="8,6" fill="none"/>
+        <g class="route-pill" transform="translate(720, 290)">
+          <rect x="-62" y="-12" width="124" height="22" rx="11" fill="rgba(15,23,42,0.95)" stroke="#3b82f6" stroke-width="1.5"/>
+          <text text-anchor="middle" dy="4" fill="#dbeafe" font-size="11" font-weight="600">D2/D7 · 183km · 2.5h</text>
         </g>
 
-        <!-- D3: 伊宁 → 赛里木湖（往返） -->
-        <path d="M 130 280 Q 95 235 110 200" stroke="#10b981" stroke-width="3" stroke-dasharray="8,6" fill="none"/>
-        <g class="route-pill" transform="translate(45, 235)">
-          <rect x="-58" y="-12" width="116" height="22" rx="11" fill="rgba(15,23,42,0.95)" stroke="#10b981" stroke-width="1.5"/>
-          <text text-anchor="middle" dy="4" fill="#a7f3d0" font-size="11" font-weight="600">220km往返 · 4h</text>
+        <!-- D3: 吐鲁番 ↔ 库木塔格沙漠（往返） -->
+        <path d="M 820 350 Q 880 360 940 380" stroke="#10b981" stroke-width="3" stroke-dasharray="8,6" fill="none"/>
+        <g class="route-pill" transform="translate(880, 408)">
+          <rect x="-66" y="-12" width="132" height="22" rx="11" fill="rgba(15,23,42,0.95)" stroke="#10b981" stroke-width="1.5"/>
+          <text text-anchor="middle" dy="4" fill="#a7f3d0" font-size="11" font-weight="600">D3 · 190km往返 · 3h</text>
         </g>
 
-        <!-- D4: 伊宁 → 那拉提 -->
-        <path d="M 130 280 Q 220 320 320 360" stroke="#fbbf24" stroke-width="3" stroke-dasharray="8,6" fill="none"/>
-        <g class="route-pill" transform="translate(225, 305)">
-          <rect x="-50" y="-12" width="100" height="22" rx="11" fill="rgba(15,23,42,0.95)" stroke="#fbbf24" stroke-width="1.5"/>
-          <text text-anchor="middle" dy="4" fill="#fde68a" font-size="11" font-weight="600">270km · 3.5h</text>
+        <!-- D4/D6: 吐鲁番 ↔ 哈密 -->
+        <path d="M 820 350 Q 920 380 1020 415" stroke="#fbbf24" stroke-width="3" stroke-dasharray="8,6" fill="none"/>
+        <g class="route-pill" transform="translate(925, 372)">
+          <rect x="-60" y="-12" width="120" height="22" rx="11" fill="rgba(15,23,42,0.95)" stroke="#fbbf24" stroke-width="1.5"/>
+          <text text-anchor="middle" dy="4" fill="#fde68a" font-size="11" font-weight="600">D4/D6 · 340km · 4h</text>
         </g>
 
-        <!-- D6: 那拉提 → 巴音布鲁克 -->
-        <path d="M 320 360 Q 380 405 430 440" stroke="#ec4899" stroke-width="3" stroke-dasharray="8,6" fill="none"/>
-        <g class="route-pill" transform="translate(395, 388)">
-          <rect x="-44" y="-12" width="88" height="22" rx="11" fill="rgba(15,23,42,0.95)" stroke="#ec4899" stroke-width="1.5"/>
-          <text text-anchor="middle" dy="4" fill="#fbcfe8" font-size="11" font-weight="600">120km · 2h</text>
-        </g>
-
-        <!-- D7: 巴音布鲁克 → 库车（独库南段） -->
-        <path d="M 430 440 Q 415 490 430 545" stroke="#06b6d4" stroke-width="3" stroke-dasharray="8,6" fill="none"/>
-        <g class="route-pill" transform="translate(500, 495)">
-          <rect x="-58" y="-12" width="116" height="22" rx="11" fill="rgba(15,23,42,0.95)" stroke="#06b6d4" stroke-width="1.5"/>
-          <text text-anchor="middle" dy="4" fill="#a5f3fc" font-size="11" font-weight="600">独库250km · 4h</text>
-        </g>
-        <text x="510" y="475" text-anchor="middle" fill="#06b6d4" font-size="10" opacity="0.85">⚠️ 独库南段</text>
-
-        <!-- 起点参考：乌鲁木齐 -->
-        <g class="svg-stop"><title>起点 / 终点 · 乌鲁木齐</title>
-          <circle class="stop-dot" cx="640" cy="270" r="13" fill="#475569" stroke="#fff" stroke-width="2"/>
-          <text x="640" y="274" text-anchor="middle" fill="#fff" font-size="10" font-weight="800">起</text>
-          <text x="640" y="248" text-anchor="middle" fill="#cbd5e1" font-size="12" font-weight="600">乌鲁木齐</text>
-          <text x="640" y="293" text-anchor="middle" fill="#94a3b8" font-size="9">中转/返程</text>
+        <!-- D5: 哈密 ↔ 巴里坤大草原（往返） -->
+        <path d="M 1020 415 Q 1000 350 1015 290" stroke="#ec4899" stroke-width="3" stroke-dasharray="8,6" fill="none"/>
+        <g class="route-pill" transform="translate(1015, 358)">
+          <rect x="-66" y="-12" width="132" height="22" rx="11" fill="rgba(15,23,42,0.95)" stroke="#ec4899" stroke-width="1.5"/>
+          <text text-anchor="middle" dy="4" fill="#fbcfe8" font-size="11" font-weight="600">D5 · 270km往返 · 3h</text>
         </g>
 
         <!-- 站点 -->
-        <g class="svg-stop"><title>D1-D2 · 伊宁 · 东方小巴黎</title>
-          <circle class="stop-dot" cx="130" cy="280" r="16" fill="#ef4444" stroke="#fff" stroke-width="2.5"/>
-          <text x="130" y="285" text-anchor="middle" fill="#fff" font-size="13" font-weight="800">1</text>
-          <text x="130" y="256" text-anchor="middle" fill="#fbbf24" font-size="13" font-weight="700">伊宁</text>
-          <text x="130" y="275" text-anchor="middle" fill="#94a3b8" font-size="9" dy="22">D1-2·六星街</text>
+        <g class="svg-stop"><title>D1 起 / D7 终 · 乌鲁木齐 · 取车还车</title>
+          <circle class="stop-dot" cx="640" cy="270" r="17" fill="#ef4444" stroke="#fff" stroke-width="2.5"/>
+          <text x="640" y="275" text-anchor="middle" fill="#fff" font-size="11" font-weight="800">1·7</text>
+          <text x="640" y="246" text-anchor="middle" fill="#fbbf24" font-size="13" font-weight="700">乌鲁木齐</text>
+          <text x="640" y="293" text-anchor="middle" fill="#94a3b8" font-size="9">D1取车·D7还车</text>
         </g>
-        <g class="svg-stop"><title>D3 · 赛里木湖 · 大西洋的最后一滴眼泪</title>
-          <circle class="stop-dot" cx="110" cy="200" r="14" fill="#10b981" stroke="#fff" stroke-width="2.5"/>
-          <text x="110" y="205" text-anchor="middle" fill="#fff" font-size="12" font-weight="800">3</text>
+        <g class="svg-stop"><title>D2-D3, D6-D7 · 吐鲁番 · 大本营</title>
+          <circle class="stop-dot" cx="820" cy="350" r="17" fill="#3b82f6" stroke="#fff" stroke-width="2.5"/>
+          <text x="820" y="355" text-anchor="middle" fill="#fff" font-size="10" font-weight="800">2·6</text>
+          <text x="820" y="326" text-anchor="middle" fill="#fbbf24" font-size="13" font-weight="700">吐鲁番</text>
+          <text x="820" y="345" text-anchor="middle" fill="#94a3b8" font-size="9" dy="22">大本营·住4晚</text>
         </g>
-        <g class="svg-stop"><title>D4-D5 · 那拉提 · 空中草原</title>
-          <circle class="stop-dot" cx="320" cy="360" r="16" fill="#fbbf24" stroke="#fff" stroke-width="2.5"/>
-          <text x="320" y="365" text-anchor="middle" fill="#0f172a" font-size="13" font-weight="800">4·5</text>
-          <text x="320" y="336" text-anchor="middle" fill="#fbbf24" font-size="13" font-weight="700">那拉提</text>
-          <text x="320" y="355" text-anchor="middle" fill="#94a3b8" font-size="9" dy="22">D4-5·草原</text>
+        <g class="svg-stop"><title>D3 · 库木塔格沙漠 · 鄯善</title>
+          <circle class="stop-dot" cx="940" cy="380" r="14" fill="#10b981" stroke="#fff" stroke-width="2.5"/>
+          <text x="940" y="385" text-anchor="middle" fill="#fff" font-size="12" font-weight="800">3</text>
+          <text x="940" y="358" text-anchor="middle" fill="#fbbf24" font-size="12" font-weight="700">库木塔格</text>
         </g>
-        <g class="svg-stop"><title>D6 · 巴音布鲁克 · 九曲十八弯</title>
-          <circle class="stop-dot" cx="430" cy="440" r="16" fill="#ec4899" stroke="#fff" stroke-width="2.5"/>
-          <text x="430" y="445" text-anchor="middle" fill="#fff" font-size="13" font-weight="800">6</text>
-          <text x="430" y="416" text-anchor="middle" fill="#fbbf24" font-size="13" font-weight="700">巴音布鲁克</text>
-          <text x="430" y="435" text-anchor="middle" fill="#94a3b8" font-size="9" dy="22">D6·日落</text>
+        <g class="svg-stop"><title>D4-D5 · 哈密 · 西域古道东端</title>
+          <circle class="stop-dot" cx="1020" cy="415" r="17" fill="#fbbf24" stroke="#fff" stroke-width="2.5"/>
+          <text x="1020" y="420" text-anchor="middle" fill="#0f172a" font-size="11" font-weight="800">4·5</text>
+          <text x="1020" y="392" text-anchor="middle" fill="#fbbf24" font-size="13" font-weight="700">哈密</text>
+          <text x="1020" y="411" text-anchor="middle" fill="#94a3b8" font-size="9" dy="22">王陵·住2晚</text>
         </g>
-        <g class="svg-stop"><title>D7 · 库车 · 独库公路终点</title>
-          <circle class="stop-dot" cx="430" cy="545" r="16" fill="#06b6d4" stroke="#fff" stroke-width="2.5"/>
-          <text x="430" y="550" text-anchor="middle" fill="#fff" font-size="13" font-weight="800">7</text>
-          <text x="430" y="521" text-anchor="middle" fill="#fbbf24" font-size="13" font-weight="700">库车</text>
-          <text x="430" y="540" text-anchor="middle" fill="#94a3b8" font-size="9" dy="22">D7·飞回乌</text>
+        <g class="svg-stop"><title>D5 · 巴里坤大草原 · 北疆三大草原</title>
+          <circle class="stop-dot" cx="1015" cy="290" r="15" fill="#ec4899" stroke="#fff" stroke-width="2.5"/>
+          <text x="1015" y="295" text-anchor="middle" fill="#fff" font-size="12" font-weight="800">5</text>
+          <text x="1015" y="266" text-anchor="middle" fill="#fbbf24" font-size="12" font-weight="700">巴里坤</text>
+          <text x="1015" y="285" text-anchor="middle" fill="#94a3b8" font-size="9" dy="22">大草原</text>
         </g>
+
+        <!-- 环线箭头提示 -->
+        <text x="370" y="500" fill="#10b981" font-size="13" font-weight="600" opacity="0.85">↻ UR 单点取还车 · 无异地费</text>
 
         <!-- 总驾驶距离 -->
         <g transform="translate(990, 580)">
           <rect x="-100" y="-18" width="200" height="36" rx="18" fill="rgba(16,185,129,0.18)" stroke="#10b981" stroke-width="1.2"/>
           <text text-anchor="middle" dy="-1" fill="#a7f3d0" font-size="11" font-weight="600">方案 B · 总驾驶</text>
-          <text text-anchor="middle" dy="13" fill="#fbbf24" font-size="13" font-weight="700">约 860 km（不含飞行）</text>
+          <text text-anchor="middle" dy="13" fill="#fbbf24" font-size="13" font-weight="700">约 1,500 km · 全程自驾</text>
         </g>
       </g>
     </svg>
@@ -1081,59 +1067,63 @@ footer {
 
 <!-- ============== 方案 B 7天 ============== -->
 <section class="container plan-content active" id="plan-B">
-  <h2 class="section-title">📅 方案 B · 7天伊犁深度版</h2>
-  <p class="section-desc">主题：伊犁河谷深度游 · 总驾驶约 1,800 km · 推荐"飞乌鲁木齐 → 转动车/航班到伊宁 → 伊宁租车自驾"</p>
+  <h2 class="section-title">📅 方案 B · 7天东疆环线版</h2>
+  <p class="section-desc">主题：东疆深度环线 · 全程自驾不坐飞机 · 乌鲁木齐机场单点取还车 · 总驾驶约 1,500 km · 每日 ≤4h ✅</p>
 
   <!-- D1 -->
   <div class="day-card">
     <div class="day-header">
       <div>
-        <div class="day-title"><span class="num">D1</span>抵达乌鲁木齐 → 转飞/动车伊宁</div>
-        <div class="day-meta">10/1（周四 · 国庆当天）· 主题：长途跨段 · 节省时间</div>
+        <div class="day-title"><span class="num">D1</span>抵达乌鲁木齐 → 市区</div>
+        <div class="day-meta">10/1（周四 · 国庆当天）· 主题：边城风情 · 取车适应时差</div>
       </div>
-      <span class="drive-tag safe">🚗 驾驶 0h（不开车）</span>
+      <span class="drive-tag safe">🚗 驾驶 0h ✅ 司机充分休息</span>
     </div>
     <div class="route-flow">
-      <span class="stop">乌鲁木齐机场</span><span class="arrow">→</span>
-      <span class="stop">飞机/动车（4h）</span><span class="arrow">→</span>
-      <span class="stop">伊宁机场</span><span class="arrow">→</span>
-      <span class="stop">六星街</span>
+      <span class="stop">地窝堡机场</span><span class="arrow">→</span>
+      <span class="stop">取车（机场点）</span><span class="arrow">→</span>
+      <span class="stop">新疆博物馆</span><span class="arrow">→</span>
+      <span class="stop">国际大巴扎</span><span class="arrow">→</span>
+      <span class="stop">五一夜市</span>
     </div>
     <div class="day-grid">
       <div class="day-block">
-        <h4>🚄 跨段交通选择</h4>
+        <h4>🏛️ 推荐景点</h4>
         <ul>
-          <li><span>国航/南航直飞 1h<div class="meta">推荐 · 省时</div></span><span class="price">¥600/人</span></li>
-          <li><span>动车 5556 次 · 11h<div class="meta">夜间卧铺也可</div></span><span class="price">¥260/人</span></li>
-          <li><span>包车直达 · 12h<div class="meta">不推荐 · 太累</div></span><span class="price">¥3,000</span></li>
+          <li><span>新疆维吾尔自治区博物馆<div class="meta">2-3h · 楼兰美女</div></span><span class="price">免费</span></li>
+          <li><span>国际大巴扎<div class="meta">2h · 中亚风情</div></span><span class="price">免费</span></li>
+          <li><span>红山公园<div class="meta">1h · 城市景观</div></span><span class="price">免费</span></li>
         </ul>
       </div>
       <div class="day-block">
-        <h4>🏨 4人住宿（伊宁）</h4>
+        <h4>🏨 4人住宿（含早）</h4>
         <ul>
-          <li><span>喀赞其民宿院落<div class="meta">维吾尔风格</div></span><span class="price">¥580</span></li>
-          <li><span>汉庭 · 伊宁解放路<div class="meta">2间标间</div></span><span class="price">¥420</span></li>
+          <li><span>亚朵 · 友好南路店<div class="meta">2间标间</div></span><span class="price">¥520</span></li>
+          <li><span>全季 · 红山店<div class="meta">2间大床房</div></span><span class="price">¥460</span></li>
+          <li><span>桔子水晶 · 西大桥<div class="meta">商务标间</div></span><span class="price">¥580</span></li>
         </ul>
       </div>
       <div class="day-block">
-        <h4>🍖 美食 · 六星街</h4>
+        <h4>🍖 美食推荐</h4>
         <ul>
-          <li><span>哈萨克小屋餐厅<div class="meta">手风琴+俄式风味</div></span><span class="price">¥130/人</span></li>
-          <li><span>六星街冰淇淋<div class="meta">塔塔尔奶酒+老冰糕</div></span><span class="price">¥30/人</span></li>
+          <li><span>五一夜市<div class="meta">烤肉/抓饭/奶茶</div></span><span class="price">¥80/人</span></li>
+          <li><span>阿布拉的馕（友好南路）<div class="meta">现烤大馕</div></span><span class="price">¥10起</span></li>
+          <li><span>海尔巴格 · 大巴扎店<div class="meta">手抓饭+烤全羊</div></span><span class="price">¥120/人</span></li>
         </ul>
       </div>
       <div class="day-block">
         <h4>💰 当日预算（4人）</h4>
         <ul>
-          <li><span>转机/动车（4人）</span><span class="price">¥2,400</span></li>
-          <li><span>住宿</span><span class="price">¥580</span></li>
-          <li><span>餐饮</span><span class="price">¥520</span></li>
-          <li><strong style="color:var(--gold)">合计</strong><span class="price">¥3,500</span></li>
+          <li><span>住宿</span><span class="price">¥520</span></li>
+          <li><span>餐饮</span><span class="price">¥360</span></li>
+          <li><span>门票</span><span class="price">¥0</span></li>
+          <li><span>市内停车 / 打车</span><span class="price">¥80</span></li>
+          <li><strong style="color:var(--gold)">合计</strong><span class="price">¥960</span></li>
         </ul>
       </div>
     </div>
     <div class="tip-box">
-      <strong>🚦 单司机贴士：</strong>推荐订上午到乌鲁木齐 → 中午到伊宁的转机。司机当天<strong>完全休息</strong>，让明天更有精神。伊宁租车点很多，建议机场或市区取车。
+      <strong>🚦 单司机贴士：</strong>抵达当天不安排长途，让司机调整时差（新疆比北京晚 2 小时，22:00 才天黑）。建议晚上 23:00 前入睡。<strong>取车流程</strong>：身份证+驾照+信用卡，仔细录像车况划痕（重要！）。国庆当天人多，预留 1 小时取车缓冲。
     </div>
   </div>
 
@@ -1141,53 +1131,55 @@ footer {
   <div class="day-card">
     <div class="day-header">
       <div>
-        <div class="day-title"><span class="num">D2</span>伊宁市区深度日</div>
-        <div class="day-meta">10/2（周五）· 主题：东方小巴黎 · 民俗摄影</div>
+        <div class="day-title"><span class="num">D2</span>乌鲁木齐 → 吐鲁番</div>
+        <div class="day-meta">10/2（周五）· 主题：火洲风情 · 千年遗迹</div>
       </div>
-      <span class="drive-tag safe">🚗 驾驶 0h ✅ 步行+打车</span>
+      <span class="drive-tag safe">🚗 驾驶 2.5h（183km）✅ 单司机轻松</span>
     </div>
     <div class="route-flow">
-      <span class="stop">六星街</span><span class="arrow">→</span>
-      <span class="stop">喀赞其民俗村</span><span class="arrow">→</span>
-      <span class="stop">伊犁河大桥</span><span class="arrow">→</span>
-      <span class="stop">日落晚餐</span>
+      <span class="stop">乌鲁木齐</span><span class="arrow">→</span>
+      <span class="stop">达坂城风车阵</span><span class="arrow">→</span>
+      <span class="stop">交河故城</span><span class="arrow">→</span>
+      <span class="stop">葡萄沟</span><span class="arrow">→</span>
+      <span class="stop">吐鲁番宿</span>
     </div>
     <div class="day-grid">
       <div class="day-block">
         <h4>🏛️ 推荐景点</h4>
         <ul>
-          <li><span>六星街<div class="meta">2h · 彩色门窗摄影</div></span><span class="price">免费</span></li>
-          <li><span>喀赞其民俗村<div class="meta">3h · 马车游</div></span><span class="price">¥120</span></li>
-          <li><span>伊犁河大桥<div class="meta">日落必拍</div></span><span class="price">免费</span></li>
+          <li><span>达坂城风车阵<div class="meta">30min · 路过拍照</div></span><span class="price">免费</span></li>
+          <li><span>交河故城<div class="meta">2h · 世界遗产</div></span><span class="price">¥70</span></li>
+          <li><span>葡萄沟<div class="meta">2-3h · 葡萄长廊</div></span><span class="price">¥75</span></li>
+          <li><span>火焰山（路过观景）<div class="meta">30min · 拍照</div></span><span class="price">¥40</span></li>
         </ul>
       </div>
       <div class="day-block">
-        <h4>📸 拍照点</h4>
+        <h4>🏨 4人住宿（吐鲁番3晚）</h4>
         <ul>
-          <li><span>蓝色门牌民居<div class="meta">六星街标志</div></span><span class="price">免费</span></li>
-          <li><span>百年老宅 · 亚历山大餐厅<div class="meta">可入内消费</div></span><span class="price">免费</span></li>
+          <li><span>吐鲁番丽橙酒店<div class="meta">2间豪华双床</div></span><span class="price">¥420/晚</span></li>
+          <li><span>葡萄沟民宿（含早）<div class="meta">维吾尔风院落</div></span><span class="price">¥500/晚</span></li>
         </ul>
       </div>
       <div class="day-block">
         <h4>🍖 美食推荐</h4>
         <ul>
-          <li><span>布拉克贝希烤肉<div class="meta">伊宁第一烤肉</div></span><span class="price">¥120/人</span></li>
-          <li><span>苏里坦塔吉克餐厅<div class="meta">羊肉抓饭</div></span><span class="price">¥90/人</span></li>
+          <li><span>高昌路夜市<div class="meta">烤包子/凉皮/拉条子</div></span><span class="price">¥60/人</span></li>
+          <li><span>葡萄园农家乐<div class="meta">大盘鸡+手抓饭</div></span><span class="price">¥110/人</span></li>
         </ul>
       </div>
       <div class="day-block">
         <h4>💰 当日预算（4人）</h4>
         <ul>
-          <li><span>住宿</span><span class="price">¥580</span></li>
-          <li><span>餐饮</span><span class="price">¥720</span></li>
-          <li><span>门票</span><span class="price">¥480</span></li>
-          <li><span>市内打车</span><span class="price">¥120</span></li>
-          <li><strong style="color:var(--gold)">合计</strong><span class="price">¥1,900</span></li>
+          <li><span>住宿</span><span class="price">¥420</span></li>
+          <li><span>餐饮</span><span class="price">¥520</span></li>
+          <li><span>门票</span><span class="price">¥740</span></li>
+          <li><span>油费 + 过路费</span><span class="price">¥260</span></li>
+          <li><strong style="color:var(--gold)">合计</strong><span class="price">¥1,940</span></li>
         </ul>
       </div>
     </div>
     <div class="tip-box">
-      <strong>🚦 单司机贴士：</strong>这是司机连续两天 0 驾驶日，给明天赛湖往返做体力储备。傍晚伊犁河大桥日落人很多，建议 19:30 到达占位置。
+      <strong>🚦 单司机贴士：</strong>G30 京新高速一路平直，10 月吐鲁番已不算燥热（白天 25℃）但仍要补水。中途<strong>小草湖服务区</strong>休息 15 分钟。吐鲁番作为大本营连住 3 晚（D2-D4），不必每天搬行李。
     </div>
   </div>
 
@@ -1195,56 +1187,56 @@ footer {
   <div class="day-card">
     <div class="day-header">
       <div>
-        <div class="day-title"><span class="num">D3</span>伊宁 → 赛里木湖 → 伊宁</div>
-        <div class="day-meta">10/3（周六）· 主题：大西洋的最后一滴眼泪</div>
+        <div class="day-title"><span class="num">D3</span>吐鲁番 → 鄯善 → 吐鲁番</div>
+        <div class="day-meta">10/3（周六）· 主题：库木塔格沙漠 · 大漠日落必体验</div>
       </div>
-      <span class="drive-tag warn">🚗 驾驶 4h（往返）⚠️ 当日上限</span>
+      <span class="drive-tag safe">🚗 驾驶 3h（往返190km）✅</span>
     </div>
     <div class="route-flow">
-      <span class="stop">伊宁</span><span class="arrow">→</span>
-      <span class="stop">果子沟大桥</span><span class="arrow">→</span>
-      <span class="stop">赛里木湖（环湖）</span><span class="arrow">→</span>
-      <span class="stop">果子沟</span><span class="arrow">→</span>
-      <span class="stop">伊宁</span>
+      <span class="stop">吐鲁番</span><span class="arrow">→</span>
+      <span class="stop">坎儿井民俗园</span><span class="arrow">→</span>
+      <span class="stop">鄯善 · 库木塔格沙漠</span><span class="arrow">→</span>
+      <span class="stop">沙漠日落</span><span class="arrow">→</span>
+      <span class="stop">吐鲁番宿</span>
     </div>
     <div class="day-grid">
       <div class="day-block">
         <h4>🏛️ 推荐景点</h4>
         <ul>
-          <li><span>果子沟大桥<div class="meta">30min · 路过停车</div></span><span class="price">免费</span></li>
-          <li><span>赛里木湖<div class="meta">5-6h · 环湖90km</div></span><span class="price">¥140</span></li>
-          <li><span>湖边骑马 / 拍婚纱<div class="meta">可选</div></span><span class="price">¥80起</span></li>
+          <li><span>坎儿井民俗园<div class="meta">1.5h · 古代水利</div></span><span class="price">¥40</span></li>
+          <li><span>库木塔格沙漠（重头戏）<div class="meta">3-4h · 滑沙/骆驼/越野</div></span><span class="price">¥84</span></li>
+          <li><span>沙漠日落<div class="meta">观景塔上拍片</div></span><span class="price">含票</span></li>
         </ul>
       </div>
       <div class="day-block">
-        <h4>🌊 环湖玩法</h4>
+        <h4>🏜️ 沙漠玩法</h4>
         <ul>
-          <li><span>东大门 · 主入口</span><span class="price">含票</span></li>
-          <li><span>天鹅观景台</span><span class="price">含票</span></li>
-          <li><span>果子沟观景台</span><span class="price">含票</span></li>
-          <li><span>湖边野餐</span><span class="price">自备</span></li>
+          <li><span>滑沙板</span><span class="price">¥40</span></li>
+          <li><span>骆驼骑行</span><span class="price">¥80/人</span></li>
+          <li><span>越野车冲沙</span><span class="price">¥150/人</span></li>
+          <li><span>沙漠摩托</span><span class="price">¥120</span></li>
         </ul>
       </div>
       <div class="day-block">
         <h4>🍖 美食推荐</h4>
         <ul>
-          <li><span>清水河镇午餐<div class="meta">途中加油站旁</div></span><span class="price">¥70/人</span></li>
-          <li><span>伊宁回程晚餐 · 大盘鸡<div class="meta">阿不都拉大盘鸡</div></span><span class="price">¥110/人</span></li>
+          <li><span>鄯善老城烤肉<div class="meta">10元/串大肉串</div></span><span class="price">¥70/人</span></li>
+          <li><span>沙漠边晚餐 · 维星<div class="meta">手抓饭+烤鱼</div></span><span class="price">¥100/人</span></li>
         </ul>
       </div>
       <div class="day-block">
         <h4>💰 当日预算（4人）</h4>
         <ul>
-          <li><span>住宿（伊宁）</span><span class="price">¥420</span></li>
-          <li><span>餐饮</span><span class="price">¥720</span></li>
-          <li><span>门票</span><span class="price">¥560</span></li>
-          <li><span>油费 + 过路费</span><span class="price">¥260</span></li>
-          <li><strong style="color:var(--gold)">合计</strong><span class="price">¥1,960</span></li>
+          <li><span>住宿（吐鲁番）</span><span class="price">¥420</span></li>
+          <li><span>餐饮</span><span class="price">¥680</span></li>
+          <li><span>门票 + 玩乐</span><span class="price">¥1,200</span></li>
+          <li><span>油费 + 过路费</span><span class="price">¥220</span></li>
+          <li><strong style="color:var(--gold)">合计</strong><span class="price">¥2,520</span></li>
         </ul>
       </div>
     </div>
     <div class="tip-box">
-      <strong>🚦 单司机贴士：</strong>赛湖往返驾驶分两段（去 2h + 回 2h），中午到达后让司机在湖边餐厅<strong>休息 1 小时</strong>再环湖。果子沟弯多坡陡，下坡用低档不要踩刹车。
+      <strong>🚦 单司机贴士：</strong>沙漠玩到日落约 20:30，回吐鲁番需开夜车 1.5h，<strong>务必准备红牛 + 副驾盯导航</strong>。沙漠戈壁路段无路灯，远光灯 + 慢速。10月日落比夏季早 1 小时，注意时间安排。
     </div>
   </div>
 
@@ -1252,53 +1244,56 @@ footer {
   <div class="day-card">
     <div class="day-header">
       <div>
-        <div class="day-title"><span class="num">D4</span>伊宁 → 那拉提</div>
-        <div class="day-meta">10/4（周日）· 主题：伊犁河谷沿线（10月薰衣草已凋谢，看金色秋林）</div>
+        <div class="day-title"><span class="num">D4</span>吐鲁番 → 哈密</div>
+        <div class="day-meta">10/4（周日）· 主题：哈密王陵 · 西域古道东端</div>
       </div>
-      <span class="drive-tag safe">🚗 驾驶 3.5h ✅ 边走边停</span>
+      <span class="drive-tag warn">🚗 驾驶 4h（340km）⚠️ 当日上限</span>
     </div>
     <div class="route-flow">
-      <span class="stop">伊宁</span><span class="arrow">→</span>
-      <span class="stop">霍城薰衣草庄园</span><span class="arrow">→</span>
-      <span class="stop">巩留河谷</span><span class="arrow">→</span>
-      <span class="stop">那拉提镇</span>
+      <span class="stop">吐鲁番</span><span class="arrow">→</span>
+      <span class="stop">G30沿戈壁</span><span class="arrow">→</span>
+      <span class="stop">哈密回王府</span><span class="arrow">→</span>
+      <span class="stop">哈密王陵</span><span class="arrow">→</span>
+      <span class="stop">哈密夜市</span>
     </div>
     <div class="day-grid">
       <div class="day-block">
         <h4>🏛️ 推荐景点</h4>
         <ul>
-          <li><span>霍城薰衣草<div class="meta">6月底盛放，季节限定</div></span><span class="price">¥40</span></li>
-          <li><span>巩留河谷观景<div class="meta">途中停车</div></span><span class="price">免费</span></li>
-          <li><span>那拉提镇<div class="meta">入住准备明天</div></span><span class="price">-</span></li>
+          <li><span>哈密回王府<div class="meta">2h · 维吾尔王府建筑</div></span><span class="price">¥40</span></li>
+          <li><span>哈密王陵<div class="meta">1.5h · 伊斯兰陵园</div></span><span class="price">¥60</span></li>
+          <li><span>哈密博物馆<div class="meta">2h · 西域文化</div></span><span class="price">免费</span></li>
         </ul>
       </div>
       <div class="day-block">
-        <h4>🏨 4人住宿（那拉提）</h4>
+        <h4>🏨 4人住宿（哈密2晚）</h4>
         <ul>
-          <li><span>哈萨克毡房（含晚餐）<div class="meta">草原星空</div></span><span class="price">¥780</span></li>
-          <li><span>那拉提小镇酒店<div class="meta">2间标间 · 传统宿舍</div></span><span class="price">¥420</span></li>
+          <li><span>哈密万兴大酒店<div class="meta">2间标间·商务</div></span><span class="price">¥460/晚</span></li>
+          <li><span>哈密亚朵<div class="meta">连锁可信赖</div></span><span class="price">¥520/晚</span></li>
+          <li><span>汉庭 · 哈密爱国路<div class="meta">经济型</div></span><span class="price">¥360/晚</span></li>
         </ul>
       </div>
       <div class="day-block">
         <h4>🍖 美食推荐</h4>
         <ul>
-          <li><span>毡房晚餐<div class="meta">手抓肉+奶茶+馕</div></span><span class="price">含住宿</span></li>
-          <li><span>那拉提镇烤全羊<div class="meta">需提前预订</div></span><span class="price">¥600/只</span></li>
+          <li><span>哈密夜市<div class="meta">烤包子+羊杂汤</div></span><span class="price">¥70/人</span></li>
+          <li><span>王府烤全羊<div class="meta">需提前预订</div></span><span class="price">¥800/只</span></li>
+          <li><span>哈密大枣 + 哈密瓜<div class="meta">原产地</div></span><span class="price">¥30起</span></li>
         </ul>
       </div>
       <div class="day-block">
         <h4>💰 当日预算（4人）</h4>
         <ul>
-          <li><span>住宿（含晚餐）</span><span class="price">¥780</span></li>
-          <li><span>午餐</span><span class="price">¥320</span></li>
-          <li><span>门票</span><span class="price">¥160</span></li>
-          <li><span>油费 + 过路费</span><span class="price">¥240</span></li>
-          <li><strong style="color:var(--gold)">合计</strong><span class="price">¥1,500</span></li>
+          <li><span>住宿</span><span class="price">¥460</span></li>
+          <li><span>餐饮</span><span class="price">¥600</span></li>
+          <li><span>门票</span><span class="price">¥400</span></li>
+          <li><span>油费 + 过路费</span><span class="price">¥320</span></li>
+          <li><strong style="color:var(--gold)">合计</strong><span class="price">¥1,780</span></li>
         </ul>
       </div>
     </div>
     <div class="tip-box">
-      <strong>🚦 单司机贴士：</strong>G218 沿河谷而行，限速多变（60/80/100 切换），<strong>务必跟随导航限速</strong>。沿途有摄像头多。下午抵达毡房后司机即休息，晚餐时不饮酒。
+      <strong>🚦 单司机贴士：</strong>这是 7 天里最长驾驶日。<strong>早 8:00 出发</strong>留足缓冲。G30 一路戈壁单调易疲劳，每 100km 必停（小草湖、鄯善、十三间房 3 个服务区）。中途加油站间隔 200km，<strong>剩半箱即加油</strong>。
     </div>
   </div>
 
@@ -1306,53 +1301,58 @@ footer {
   <div class="day-card">
     <div class="day-header">
       <div>
-        <div class="day-title"><span class="num">D5</span>那拉提空中草原一日游</div>
-        <div class="day-meta">10/5（周一）· 主题：天山深处的世外桃源</div>
+        <div class="day-title"><span class="num">D5</span>哈密 → 巴里坤大草原 → 哈密</div>
+        <div class="day-meta">10/5（周一）· 主题：天山东端草原 · 高原湖泊</div>
       </div>
-      <span class="drive-tag safe">🚗 驾驶 0h ✅ 景区内电瓶车</span>
+      <span class="drive-tag safe">🚗 驾驶 3h（往返270km）✅</span>
     </div>
     <div class="route-flow">
-      <span class="stop">毡房早餐</span><span class="arrow">→</span>
-      <span class="stop">空中草原</span><span class="arrow">→</span>
-      <span class="stop">骑马 / 滑草</span><span class="arrow">→</span>
-      <span class="stop">回毡房</span>
+      <span class="stop">哈密</span><span class="arrow">→</span>
+      <span class="stop">天山公路（翻山）</span><span class="arrow">→</span>
+      <span class="stop">巴里坤大草原</span><span class="arrow">→</span>
+      <span class="stop">巴里坤湖</span><span class="arrow">→</span>
+      <span class="stop">巴里坤古城</span><span class="arrow">→</span>
+      <span class="stop">哈密宿</span>
     </div>
     <div class="day-grid">
       <div class="day-block">
-        <h4>🏛️ 推荐玩法</h4>
+        <h4>🏛️ 推荐景点</h4>
         <ul>
-          <li><span>那拉提景区<div class="meta">含电瓶车 6h</div></span><span class="price">¥225</span></li>
-          <li><span>空中草原观光<div class="meta">最高3000m</div></span><span class="price">含票</span></li>
-          <li><span>骑马 1 小时<div class="meta">哈萨克牧民带</div></span><span class="price">¥150/人</span></li>
+          <li><span>巴里坤大草原<div class="meta">3h · 北疆三大草原之一</div></span><span class="price">免费</span></li>
+          <li><span>巴里坤湖<div class="meta">1h · 高山咸水湖</div></span><span class="price">免费</span></li>
+          <li><span>巴里坤古城<div class="meta">1h · 清代驻军遗址</div></span><span class="price">¥30</span></li>
+          <li><span>鸣沙山（西海子）<div class="meta">可选 · 30min</div></span><span class="price">¥20</span></li>
         </ul>
       </div>
       <div class="day-block">
         <h4>🐎 草原活动</h4>
         <ul>
-          <li><span>滑草</span><span class="price">¥80</span></li>
-          <li><span>射箭体验</span><span class="price">¥50</span></li>
-          <li><span>套马表演（限定时间）</span><span class="price">免费</span></li>
+          <li><span>骑马（哈萨克牧民带）</span><span class="price">¥120/人</span></li>
+          <li><span>射箭体验</span><span class="price">¥40</span></li>
+          <li><span>湖边野餐 / 拍照</span><span class="price">免费</span></li>
         </ul>
       </div>
       <div class="day-block">
         <h4>🍖 美食推荐</h4>
         <ul>
-          <li><span>景区内毡房午餐<div class="meta">奶茶+包尔萨克</div></span><span class="price">¥80/人</span></li>
-          <li><span>毡房晚餐 · 烤羊腿<div class="meta">提前预订</div></span><span class="price">¥160/人</span></li>
+          <li><span>巴里坤手抓肉<div class="meta">草原风味</div></span><span class="price">¥130/人</span></li>
+          <li><span>哈萨克奶茶 + 包尔萨克<div class="meta">毡房现做</div></span><span class="price">¥40/人</span></li>
+          <li><span>哈密晚餐 · 烤羊排<div class="meta">回程吃</div></span><span class="price">¥110/人</span></li>
         </ul>
       </div>
       <div class="day-block">
         <h4>💰 当日预算（4人）</h4>
         <ul>
-          <li><span>住宿（含早晚餐）</span><span class="price">¥780</span></li>
-          <li><span>午餐</span><span class="price">¥320</span></li>
-          <li><span>门票 + 骑马</span><span class="price">¥1,500</span></li>
-          <li><strong style="color:var(--gold)">合计</strong><span class="price">¥2,600</span></li>
+          <li><span>住宿（哈密）</span><span class="price">¥460</span></li>
+          <li><span>餐饮</span><span class="price">¥640</span></li>
+          <li><span>门票 + 骑马</span><span class="price">¥680</span></li>
+          <li><span>油费 + 过路费</span><span class="price">¥180</span></li>
+          <li><strong style="color:var(--gold)">合计</strong><span class="price">¥1,960</span></li>
         </ul>
       </div>
     </div>
     <div class="tip-box">
-      <strong>🚦 单司机贴士：</strong>这天是连续第二个 0 驾驶日。司机在毡房充分睡眠（草原夜晚很冷需厚被）。海拔 2000+ 注意防晒，备保暖外套。
+      <strong>🚦 单司机贴士：</strong>哈密→巴里坤翻天山东段（海拔 2200m），盘山公路弯多，<strong>限速 40-60</strong>。10 月初草原已转黄但仍壮观，气温 5-15℃<strong>必备保暖衣</strong>。早 9:00 出发，傍晚 18:00 回哈密，避开夜路。
     </div>
   </div>
 
@@ -1360,53 +1360,56 @@ footer {
   <div class="day-card">
     <div class="day-header">
       <div>
-        <div class="day-title"><span class="num">D6</span>那拉提 → 巴音布鲁克</div>
-        <div class="day-meta">10/6（周二）· 主题：九曲十八弯日落 · 一生必看</div>
+        <div class="day-title"><span class="num">D6</span>哈密 → 吐鲁番</div>
+        <div class="day-meta">10/6（周二）· 主题：返程 · 路过鄯善补购葡萄干</div>
       </div>
-      <span class="drive-tag safe">🚗 驾驶 2h ✅ 但需翻山越岭</span>
+      <span class="drive-tag warn">🚗 驾驶 4h（340km）⚠️ 当日上限</span>
     </div>
     <div class="route-flow">
-      <span class="stop">那拉提</span><span class="arrow">→</span>
-      <span class="stop">独库公路 218 段</span><span class="arrow">→</span>
-      <span class="stop">巴音布鲁克镇</span><span class="arrow">→</span>
-      <span class="stop">九曲十八弯</span>
+      <span class="stop">哈密</span><span class="arrow">→</span>
+      <span class="stop">十三间房（午餐）</span><span class="arrow">→</span>
+      <span class="stop">鄯善（补葡萄干）</span><span class="arrow">→</span>
+      <span class="stop">吐鲁番</span><span class="arrow">→</span>
+      <span class="stop">高昌故城（可选）</span>
     </div>
     <div class="day-grid">
       <div class="day-block">
-        <h4>🏛️ 推荐景点</h4>
+        <h4>🏛️ 路过 + 景点</h4>
         <ul>
-          <li><span>巩乃斯林场（路过）<div class="meta">雪岭云杉</div></span><span class="price">免费</span></li>
-          <li><span>巴音布鲁克景区<div class="meta">3-4h · 含区间车</div></span><span class="price">¥160</span></li>
-          <li><span>九曲十八弯日落（22:00）<div class="meta">观景塔等机位</div></span><span class="price">含票</span></li>
+          <li><span>十三间房风车阵<div class="meta">休息+拍照 30min</div></span><span class="price">免费</span></li>
+          <li><span>鄯善葡萄干市场<div class="meta">原产地批发价</div></span><span class="price">¥50/斤</span></li>
+          <li><span>高昌故城（可选）<div class="meta">2h · 古城遗址</div></span><span class="price">¥70</span></li>
         </ul>
       </div>
       <div class="day-block">
-        <h4>🏨 4人住宿（巴音）</h4>
+        <h4>🏨 4人住宿（吐鲁番末晚）</h4>
         <ul>
-          <li><span>巴音镇民宿<div class="meta">2间标间</div></span><span class="price">¥380</span></li>
-          <li><span>蒙古包毡房<div class="meta">星空体验</div></span><span class="price">¥440</span></li>
+          <li><span>吐鲁番丽橙酒店<div class="meta">回老地方</div></span><span class="price">¥420</span></li>
+          <li><span>吐鲁番宾馆<div class="meta">本地老牌</div></span><span class="price">¥360</span></li>
         </ul>
       </div>
       <div class="day-block">
         <h4>🍖 美食推荐</h4>
         <ul>
-          <li><span>巴音镇蒙古菜馆<div class="meta">手把肉</div></span><span class="price">¥110/人</span></li>
-          <li><span>奶皮子 + 砖茶<div class="meta">蒙族特色</div></span><span class="price">¥30/人</span></li>
+          <li><span>鄯善老街烤包子<div class="meta">午餐</div></span><span class="price">¥50/人</span></li>
+          <li><span>吐鲁番大盘鸡 · 阿凡提<div class="meta">本地必吃</div></span><span class="price">¥120/人</span></li>
+          <li><span>葡萄井凉皮<div class="meta">夜宵</div></span><span class="price">¥30/人</span></li>
         </ul>
       </div>
       <div class="day-block">
         <h4>💰 当日预算（4人）</h4>
         <ul>
-          <li><span>住宿</span><span class="price">¥440</span></li>
-          <li><span>餐饮</span><span class="price">¥560</span></li>
-          <li><span>门票</span><span class="price">¥640</span></li>
-          <li><span>油费 + 过路费</span><span class="price">¥180</span></li>
-          <li><strong style="color:var(--gold)">合计</strong><span class="price">¥1,820</span></li>
+          <li><span>住宿</span><span class="price">¥420</span></li>
+          <li><span>餐饮</span><span class="price">¥520</span></li>
+          <li><span>门票（高昌可选）</span><span class="price">¥280</span></li>
+          <li><span>油费 + 过路费</span><span class="price">¥320</span></li>
+          <li><span>葡萄干伴手礼</span><span class="price">¥400</span></li>
+          <li><strong style="color:var(--gold)">合计</strong><span class="price">¥1,940</span></li>
         </ul>
       </div>
     </div>
     <div class="tip-box">
-      <strong>🚦 单司机贴士：</strong>独库公路 218 段是"中国最美公路"南段，但海拔 3000+，<strong>限速 40-60</strong>。可能高反，备葡萄糖。日落要等到 21:30-22:00，回酒店开夜车 30min，副驾盯路。
+      <strong>🚦 单司机贴士：</strong>与 D4 同距离同路线（反向）。<strong>早 8:30 出发</strong>，14:00 前到鄯善逛市场。如果 D4 累，可跳过高昌故城直接到吐鲁番休息。鄯善葡萄干批发价比乌鲁木齐便宜 30%，最适合采购。
     </div>
   </div>
 
@@ -1414,54 +1417,58 @@ footer {
   <div class="day-card">
     <div class="day-header">
       <div>
-        <div class="day-title"><span class="num">D7</span>巴音布鲁克 → 库车 → 飞回乌鲁木齐</div>
-        <div class="day-meta">10/7（周三 · 假期最后一天）· 主题：独库南段穿越 · 收官</div>
+        <div class="day-title"><span class="num">D7</span>吐鲁番 → 乌鲁木齐还车</div>
+        <div class="day-meta">10/7（周三 · 假期最后一天）· 主题：回归 · 大巴扎补购物 · 还车</div>
       </div>
-      <span class="drive-tag warn">🚗 驾驶 4h ⚠️ 当日上限 · 山路</span>
+      <span class="drive-tag safe">🚗 驾驶 2.5h（183km）✅ 收官放松</span>
     </div>
     <div class="route-flow">
-      <span class="stop">巴音布鲁克</span><span class="arrow">→</span>
-      <span class="stop">独库公路南段</span><span class="arrow">→</span>
-      <span class="stop">库车大峡谷</span><span class="arrow">→</span>
-      <span class="stop">库车机场还车</span>
+      <span class="stop">吐鲁番</span><span class="arrow">→</span>
+      <span class="stop">达坂城</span><span class="arrow">→</span>
+      <span class="stop">乌鲁木齐</span><span class="arrow">→</span>
+      <span class="stop">大巴扎补购</span><span class="arrow">→</span>
+      <span class="stop">机场还车</span><span class="arrow">→</span>
+      <span class="stop">回程航班</span>
     </div>
     <div class="day-grid">
       <div class="day-block">
-        <h4>🏛️ 推荐景点</h4>
+        <h4>🛍️ 上午行程</h4>
         <ul>
-          <li><span>独库公路天山隧道<div class="meta">海拔3300m打卡</div></span><span class="price">免费</span></li>
-          <li><span>大小龙池<div class="meta">路过观景</div></span><span class="price">免费</span></li>
-          <li><span>库车天山大峡谷（可选）<div class="meta">2h</div></span><span class="price">¥75</span></li>
+          <li><span>吐鲁番早餐 · 烤包子<div class="meta">最后一顿吐鲁番</div></span><span class="price">¥40/人</span></li>
+          <li><span>UR 国际大巴扎<div class="meta">补购伴手礼 2h</div></span><span class="price">免费</span></li>
+          <li><span>大巴扎午餐<div class="meta">海尔巴格收官</div></span><span class="price">¥120/人</span></li>
         </ul>
       </div>
       <div class="day-block">
         <h4>✈️ 还车 + 离开</h4>
         <ul>
-          <li><span>库车站还车<div class="meta">异地还车有费</div></span><span class="price">¥800起</span></li>
-          <li><span>库车 → 乌鲁木齐航班<div class="meta">17:00 后</div></span><span class="price">¥500/人</span></li>
+          <li><span>地窝堡机场还车<div class="meta">提前 2h 验车</div></span><span class="price">-</span></li>
+          <li><span>建议航班 18:00 后<div class="meta">留还车缓冲</div></span><span class="price">-</span></li>
+          <li><span>UR单点取还<div class="meta">无异地费 ✅</div></span><span class="price">省¥800</span></li>
         </ul>
       </div>
       <div class="day-block">
-        <h4>🍖 美食推荐</h4>
+        <h4>🛍️ 伴手礼推荐</h4>
         <ul>
-          <li><span>库车老城烤包子<div class="meta">10元/个</div></span><span class="price">¥40/人</span></li>
-          <li><span>库车大馕<div class="meta">手信首选</div></span><span class="price">¥20/张</span></li>
+          <li><span>哈密大枣（D4 已购）</span><span class="price">¥80/盒</span></li>
+          <li><span>鄯善葡萄干（D6 已购）</span><span class="price">¥50/斤</span></li>
+          <li><span>大巴扎 · 巴旦木 / 杏干</span><span class="price">¥100起</span></li>
+          <li><span>纯奶疙瘩 / 马奶酒</span><span class="price">¥60起</span></li>
         </ul>
       </div>
       <div class="day-block">
         <h4>💰 当日预算（4人）</h4>
         <ul>
-          <li><span>异地还车费</span><span class="price">¥800</span></li>
-          <li><span>库车 → 乌鲁木齐机票</span><span class="price">¥2,000</span></li>
-          <li><span>餐饮</span><span class="price">¥360</span></li>
-          <li><span>门票</span><span class="price">¥300</span></li>
+          <li><span>餐饮</span><span class="price">¥640</span></li>
           <li><span>油费 + 过路费</span><span class="price">¥260</span></li>
-          <li><strong style="color:var(--gold)">合计</strong><span class="price">¥3,720</span></li>
+          <li><span>UR 大巴扎伴手礼</span><span class="price">¥800</span></li>
+          <li><span>洗车（还车前推荐）</span><span class="price">¥80</span></li>
+          <li><strong style="color:var(--gold)">合计</strong><span class="price">¥1,780</span></li>
         </ul>
       </div>
     </div>
     <div class="tip-box">
-      <strong>🚦 单司机贴士：</strong>独库南段约 220km，全程山路。<strong>务必早上 7:30 出发</strong>留足缓冲。中途必停 2 次（每 100km）。下午 14:00 前到库车开始还车流程。<strong>独库公路仅 6 月 - 9 月开放</strong>。
+      <strong>🚦 单司机贴士：</strong>还车前一定<strong>全车检查 + 加满油</strong>，机场还车油表要求与取车一致。预留 1 小时缓冲应对堵车，超时会扣费。10/7 是国庆返程高峰，<strong>建议机场航班订晚上 19:00 后</strong>避开 16:00-18:00 高峰。
     </div>
   </div>
 </section>
@@ -1573,20 +1580,20 @@ footer {
       </ul>
     </div>
     <div class="mini-card">
-      <h3>🌹 伊宁</h3>
+      <h3>🏛️ 哈密</h3>
       <ul>
-        <li><span class="name">六星街冰淇淋<div class="meta">塔塔尔老冰糕</div></span><span class="price">¥30/人</span></li>
-        <li><span class="name">布拉克贝希烤肉<div class="meta">伊宁第一</div></span><span class="price">¥120/人</span></li>
-        <li><span class="name">喀赞其民俗街<div class="meta">汤饭+馕坑肉</div></span><span class="price">¥90/人</span></li>
-        <li><span class="name">亚历山大餐厅<div class="meta">百年俄式建筑</div></span><span class="price">¥150/人</span></li>
+        <li><span class="name">哈密夜市<div class="meta">烤包子+羊杂汤</div></span><span class="price">¥70/人</span></li>
+        <li><span class="name">王府烤全羊<div class="meta">需预订</div></span><span class="price">¥800/只</span></li>
+        <li><span class="name">哈密大枣 + 哈密瓜<div class="meta">原产地批发</div></span><span class="price">¥30起</span></li>
+        <li><span class="name">老回民小吃 · 烤羊排<div class="meta">本地必吃</div></span><span class="price">¥110/人</span></li>
       </ul>
     </div>
     <div class="mini-card">
-      <h3>🐎 那拉提 / 巴音</h3>
+      <h3>🐎 巴里坤大草原</h3>
       <ul>
-        <li><span class="name">哈萨克毡房晚餐<div class="meta">手抓肉+奶茶</div></span><span class="price">¥160/人</span></li>
-        <li><span class="name">那拉提烤全羊<div class="meta">需预订</div></span><span class="price">¥600/只</span></li>
-        <li><span class="name">巴音蒙古菜馆<div class="meta">手把肉</div></span><span class="price">¥110/人</span></li>
+        <li><span class="name">哈萨克毡房 · 手抓肉<div class="meta">草原现宰</div></span><span class="price">¥130/人</span></li>
+        <li><span class="name">哈萨克奶茶 + 包尔萨克<div class="meta">毡房现做</div></span><span class="price">¥40/人</span></li>
+        <li><span class="name">巴里坤湖鱼宴<div class="meta">高山咸水鱼</div></span><span class="price">¥150/人</span></li>
       </ul>
     </div>
   </div>
@@ -1607,32 +1614,32 @@ footer {
         </tr>
       </thead>
       <tbody>
-        <tr><td>租车（含保险）</td><td class="price">¥4,500</td><td class="price">¥6,300</td><td>合资SUV + 不计免赔</td></tr>
-        <tr><td>油费</td><td class="price">¥800</td><td class="price">¥1,200</td><td>1,200 / 1,800 km</td></tr>
-        <tr><td>过路费</td><td class="price">¥400</td><td class="price">¥600</td><td>高速 + 景区</td></tr>
-        <tr><td>跨段交通</td><td class="price">¥0</td><td class="price">¥4,400</td><td>方案B含转机+回程</td></tr>
-        <tr><td>住宿</td><td class="price">¥2,200</td><td class="price">¥3,200</td><td>4人合住</td></tr>
-        <tr><td>门票 + 体验</td><td class="price">¥3,200</td><td class="price">¥3,400</td><td>含骑马/沙漠</td></tr>
-        <tr><td>餐饮</td><td class="price">¥3,000</td><td class="price">¥4,200</td><td>人均 150/天</td></tr>
-        <tr><td>伴手礼</td><td class="price">¥800</td><td class="price">¥800</td><td>葡萄干/巴旦木</td></tr>
+        <tr><td>租车（含保险）</td><td class="price">¥4,500</td><td class="price">¥5,740</td><td>合资SUV + 不计免赔</td></tr>
+        <tr><td>油费</td><td class="price">¥800</td><td class="price">¥1,000</td><td>1,200 / 1,500 km</td></tr>
+        <tr><td>过路费</td><td class="price">¥400</td><td class="price">¥600</td><td>G30高速 + 景区</td></tr>
+        <tr><td>异地还车费</td><td class="price">¥0</td><td class="price">¥0 ✅</td><td>UR单点取还，省 ¥800-1500</td></tr>
+        <tr><td>住宿（4人合住）</td><td class="price">¥2,200</td><td class="price">¥2,720</td><td>UR×1+吐×4+哈×2</td></tr>
+        <tr><td>门票 + 体验</td><td class="price">¥3,200</td><td class="price">¥2,580</td><td>沙漠/王陵/巴里坤</td></tr>
+        <tr><td>餐饮</td><td class="price">¥3,000</td><td class="price">¥3,960</td><td>人均 140/天</td></tr>
+        <tr><td>伴手礼</td><td class="price">¥800</td><td class="price">¥1,200</td><td>哈密枣+鄯善葡萄干+巴旦木</td></tr>
         <tr><td>机动金</td><td class="price">¥1,000</td><td class="price">¥1,200</td><td>意外应急</td></tr>
         <tr style="background:rgba(251, 191, 36, 0.08);">
           <td><strong>合计（4人）</strong></td>
           <td class="price"><strong>¥15,900</strong></td>
-          <td class="price"><strong>¥25,300</strong></td>
-          <td>方案B含跨段</td>
+          <td class="price"><strong>¥19,000</strong></td>
+          <td>方案B在 ¥2万以内 ✅</td>
         </tr>
         <tr style="background:rgba(251, 191, 36, 0.12);">
           <td><strong>人均</strong></td>
           <td class="price"><strong>¥3,975</strong></td>
-          <td class="price"><strong>¥6,325</strong></td>
+          <td class="price"><strong>¥4,750</strong></td>
           <td>不含外地飞乌机票</td>
         </tr>
       </tbody>
     </table>
   </div>
   <p style="margin-top:16px; color:var(--text-dim); font-size:0.9rem;">
-    💡 <strong>说明</strong>：方案 A 结余可用于升级酒店或加南山度假村；方案 B 因含跨段交通预算更高，但深度体验值得。两方案都不含从外地到乌鲁木齐的往返大交通。
+    💡 <strong>说明</strong>：方案 B 全程自驾不坐飞机，UR 机场单点取还车，<strong>省去 ¥800-1500 异地还车费</strong> + ¥4000+ 飞行成本。预算精准落在 ¥2 万以内（人均 ¥4,750）。两方案都不含从外地到乌鲁木齐的往返大交通。
   </p>
 </section>
 
@@ -1712,11 +1719,11 @@ footer {
   <h2 class="section-title">📌 实用 Tips</h2>
   <div class="card-grid">
     <div class="mini-card">
-      <h3>🛣️ 独库公路</h3>
+      <h3>🛣️ 东疆 G30 高速</h3>
       <ul>
-        <li><span class="name">仅 6 月-9 月开放</span><span class="price">注意</span></li>
-        <li><span class="name">下雪即封闭</span><span>实时查询</span></li>
-        <li><span class="name">总长 561 km</span><span>南北段</span></li>
+        <li><span class="name">UR ↔ 哈密全程高速</span><span>限速100</span></li>
+        <li><span class="name">服务区每 50-100km</span><span>充足</span></li>
+        <li><span class="name">10 月路况优秀</span><span>无封闭</span></li>
       </ul>
     </div>
     <div class="mini-card">
@@ -1775,11 +1782,15 @@ footer {
   </details>
   <details>
     <summary>如果 4 小时驾驶限制太紧怎么办？</summary>
-    <div>方案 A 仅 D4 接近 4h 上限，其他都低于。方案 B 部分日驾驶分两段（去+回），中间停留长时间。如真感疲劳可临时缩短行程，跳过非必看景点。建议预订时让酒店保留 1 天弹性退订。</div>
+    <div>方案 A 仅 D4 接近 4h 上限，其他都低于。方案 B 仅 D4/D6 是 4h 上限（吐鲁番↔哈密），其余都 ≤3h。如真感疲劳可临时缩短行程，跳过 D5 的巴里坤大草原（哈密休息一天）。建议预订时让酒店保留 1 天弹性退订。</div>
   </details>
   <details>
-    <summary>异地还车贵吗？方案 B 怎么办？</summary>
-    <div>异地还车费 800-1,500 元（库车-乌鲁木齐距离）。方案 B 推荐"伊宁取车 → 库车还车"，省去回程 800km 长途。或者"原车返回乌鲁木齐"则省异地费但多 1 天驾驶。</div>
+    <summary>方案 B 为什么不去伊犁？</summary>
+    <div>乌鲁木齐到伊宁单程 700km，4h/天的限制下要 2 天才能到，往返就消耗 4 天，剩 3 天玩不深。所以方案 B 改为"东疆环线"：吐鲁番 + 库木塔格沙漠 + 哈密 + 巴里坤大草原。<strong>UR 单点取还车，无异地费</strong>，体验完全不同但同样精彩。如必去伊犁，建议另外安排一次专程（飞机直飞伊宁更实际）。</div>
+  </details>
+  <details>
+    <summary>哈密 / 巴里坤值得去吗？</summary>
+    <div>值得。<strong>哈密</strong>是西域古道东端，回王府 + 王陵 + 哈密博物馆能看完整的丝路历史；哈密大枣 + 哈密瓜原产地价格只是外地一半。<strong>巴里坤大草原</strong>是北疆三大草原之一（与那拉提、巴音布鲁克并列），10 月初虽已转黄但视野开阔，配合巴里坤湖的高山咸水湖、清代古城遗址，可以补"伊犁草原"的遗憾。</div>
   </details>
   <details>
     <summary>取消政策是怎样的？</summary>
@@ -1811,13 +1822,11 @@ const PLAN_LEGENDS = {
     { day: 'D5', color: '#a855f7', name: '南山牧场 · 还车' },
   ],
   B: [
-    { day: 'D1', color: '#ef4444', name: '飞抵伊宁（不开车）' },
-    { day: 'D2', color: '#ef4444', name: '伊宁市区深度' },
-    { day: 'D3', color: '#10b981', name: '赛里木湖（往返）' },
-    { day: 'D4', color: '#fbbf24', name: '伊宁 → 那拉提' },
-    { day: 'D5', color: '#fbbf24', name: '那拉提空中草原' },
-    { day: 'D6', color: '#ec4899', name: '巴音布鲁克 · 九曲' },
-    { day: 'D7', color: '#06b6d4', name: '独库南段 → 库车' },
+    { day: 'D1·D7', color: '#ef4444', name: '乌鲁木齐 · 取车/还车' },
+    { day: 'D2·D7', color: '#3b82f6', name: 'UR ↔ 吐鲁番 · 183km · 2.5h' },
+    { day: 'D3', color: '#10b981', name: '吐 ↔ 库木塔格沙漠 · 190km往返 · 3h' },
+    { day: 'D4·D6', color: '#fbbf24', name: '吐鲁番 ↔ 哈密 · 340km · 4h' },
+    { day: 'D5', color: '#ec4899', name: '哈密 ↔ 巴里坤草原 · 270km往返 · 3h' },
   ],
 };
 
