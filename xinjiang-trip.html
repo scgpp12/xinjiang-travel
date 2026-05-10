@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>新疆自驾游 · 4人攻略 · 单司机友好</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+/* ========== 全局样式 ========== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg-grad: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  --gold: #fbbf24;
+  --blue: #3b82f6;
+  --green: #10b981;
+  --red: #dc2626;
+  --card-bg: rgba(30, 41, 59, 0.7);
+  --card-border: rgba(251, 191, 36, 0.18);
+  --text: #e2e8f0;
+  --text-dim: #94a3b8;
+  --desert: #d97706;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: "PingFang SC", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  background: var(--bg-grad);
+  color: var(--text);
+  line-height: 1.7;
+  min-height: 100vh;
+  background-attachment: fixed;
+}
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #0f172a; }
+::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+/* ========== Hero ========== */
+.hero {
+  position: relative;
+  padding: 80px 20px 60px;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at top, rgba(251, 191, 36, 0.12), transparent 60%),
+    linear-gradient(180deg, rgba(15, 23, 42, 0.4) 0%, rgba(15, 23, 42, 0.95) 100%),
+    linear-gradient(135deg, #1e3a5f 0%, #78350f 50%, #5b21b6 100%);
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.05) 1px, transparent 2px),
+    radial-gradient(circle at 70% 60%, rgba(255,255,255,0.04) 1px, transparent 2px),
+    radial-gradient(circle at 40% 80%, rgba(255,255,255,0.03) 1px, transparent 2px);
+  background-size: 100px 100px, 150px 150px, 120px 120px;
+  pointer-events: none;
+}
+.hero h1 {
+  font-size: 3.2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 16px;
+  letter-spacing: 2px;
+  text-shadow: 0 4px 30px rgba(251, 191, 36, 0.3);
+}
+.hero .subtitle {
+  font-size: 1.2rem;
+  color: var(--text-dim);
+  margin-bottom: 30px;
+  font-weight: 300;
+}
+.hero .subtitle .badge {
+  display: inline-block;
+  background: rgba(220, 38, 38, 0.18);
+  color: #fca5a5;
+  padding: 4px 12px;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  margin: 0 4px;
+  border: 1px solid rgba(220, 38, 38, 0.3);
+}
+
+.info-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  max-width: 800px;
+  margin: 0 auto 40px;
+}
+.info-card {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.info-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(251, 191, 36, 0.15);
+}
+.info-card .label { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 6px; }
+.info-card .value { color: var(--gold); font-size: 1.6rem; font-weight: 700; }
+.info-card .unit { color: var(--text-dim); font-size: 0.85rem; margin-left: 4px; }
+
+/* ========== Tab ========== */
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 0 auto;
+  max-width: 600px;
+  flex-wrap: wrap;
+}
+.tab-btn {
+  padding: 14px 32px;
+  background: rgba(30, 41, 59, 0.7);
+  border: 2px solid rgba(148, 163, 184, 0.3);
+  color: var(--text);
+  font-size: 1.05rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: inherit;
+}
+.tab-btn:hover { border-color: var(--gold); color: var(--gold); }
+.tab-btn.active.plan-a {
+  background: linear-gradient(135deg, var(--blue), #1d4ed8);
+  border-color: var(--blue);
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.45);
+}
+.tab-btn.active.plan-b {
+  background: linear-gradient(135deg, var(--green), #047857);
+  border-color: var(--green);
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.45);
+}
+
+/* ========== 通用 Section ========== */
+section { padding: 60px 0; }
+.section-title {
+  font-size: 2rem;
+  color: var(--gold);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+}
+.section-title::before {
+  content: '';
+  width: 6px; height: 30px;
+  background: linear-gradient(180deg, var(--gold), #d97706);
+  border-radius: 3px;
+}
+.section-desc {
+  color: var(--text-dim);
+  margin-bottom: 32px;
+  font-size: 1rem;
+}
+
+/* ========== 地图 ========== */
+.map-wrap {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 16px;
+  backdrop-filter: blur(10px);
+}
+#map {
+  width: 100%;
+  height: 540px;
+  border-radius: 12px;
+  z-index: 1;
+}
+.map-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 16px;
+  padding: 12px;
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 10px;
+}
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.9rem; }
+.legend-dot {
+  width: 14px; height: 14px; border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+/* ========== 行程卡片 ========== */
+.plan-content { display: none; animation: fadeIn 0.5s ease; }
+.plan-content.active { display: block; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.day-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-left: 5px solid var(--gold);
+  border-radius: 14px;
+  padding: 28px;
+  margin-bottom: 24px;
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.day-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+}
+.day-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+  border-bottom: 1px dashed rgba(148, 163, 184, 0.25);
+  padding-bottom: 14px;
+  margin-bottom: 18px;
+}
+.day-title {
+  font-size: 1.5rem;
+  color: var(--gold);
+  font-weight: 700;
+}
+.day-title .num {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--gold), #d97706);
+  color: #0f172a;
+  padding: 3px 12px;
+  border-radius: 8px;
+  margin-right: 10px;
+  font-size: 1.1rem;
+}
+.day-meta { color: var(--text-dim); font-size: 0.95rem; margin-top: 6px; }
+
+.drive-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 22px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.drive-tag.safe {
+  background: rgba(16, 185, 129, 0.18);
+  color: #6ee7b7;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+.drive-tag.warn {
+  background: rgba(220, 38, 38, 0.18);
+  color: #fca5a5;
+  border: 1px solid rgba(220, 38, 38, 0.4);
+}
+
+.route-flow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin: 14px 0 22px;
+  padding: 14px;
+  background: rgba(15, 23, 42, 0.55);
+  border-radius: 10px;
+  font-size: 0.95rem;
+}
+.route-flow .stop {
+  background: rgba(251, 191, 36, 0.12);
+  color: var(--gold);
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(251, 191, 36, 0.3);
+}
+.route-flow .arrow { color: var(--text-dim); font-size: 1.1rem; }
+
+.day-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+}
+.day-block {
+  background: rgba(15, 23, 42, 0.55);
+  border-radius: 10px;
+  padding: 16px;
+}
+.day-block h4 {
+  color: var(--gold);
+  font-size: 1rem;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.day-block ul { list-style: none; }
+.day-block li {
+  padding: 6px 0;
+  font-size: 0.92rem;
+  color: var(--text);
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  border-bottom: 1px dashed rgba(148, 163, 184, 0.1);
+}
+.day-block li:last-child { border-bottom: none; }
+.day-block li .price { color: var(--gold); font-weight: 600; white-space: nowrap; }
+.day-block li .meta { color: var(--text-dim); font-size: 0.85rem; }
+
+.tip-box {
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: rgba(220, 38, 38, 0.1);
+  border-left: 3px solid var(--red);
+  border-radius: 8px;
+  font-size: 0.92rem;
+  color: #fecaca;
+}
+.tip-box strong { color: #fca5a5; }
+
+/* ========== 表格 ========== */
+.table-wrap {
+  overflow-x: auto;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 16px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+table th, table td {
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+  font-size: 0.95rem;
+}
+table th {
+  color: var(--gold);
+  background: rgba(15, 23, 42, 0.55);
+  font-weight: 600;
+}
+table tr:hover td { background: rgba(251, 191, 36, 0.04); }
+table .price { color: var(--gold); font-weight: 600; }
+table .recommended {
+  color: var(--green);
+  font-weight: 600;
+}
+
+/* ========== 卡片 grid ========== */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+}
+.mini-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 20px;
+  backdrop-filter: blur(8px);
+  transition: transform 0.3s;
+}
+.mini-card:hover { transform: translateY(-4px); }
+.mini-card h3 {
+  color: var(--gold);
+  font-size: 1.15rem;
+  margin-bottom: 12px;
+}
+.mini-card ul { list-style: none; }
+.mini-card li {
+  padding: 6px 0;
+  border-bottom: 1px dashed rgba(148, 163, 184, 0.15);
+  font-size: 0.93rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+.mini-card li:last-child { border-bottom: none; }
+.mini-card .name { flex: 1; }
+.mini-card .price { color: var(--gold); font-weight: 600; white-space: nowrap; }
+
+/* ========== Tips 列表 ========== */
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+}
+.tip-card {
+  background: rgba(220, 38, 38, 0.08);
+  border: 1px solid rgba(220, 38, 38, 0.25);
+  border-radius: 10px;
+  padding: 18px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.tip-card .icon {
+  font-size: 1.6rem;
+  flex-shrink: 0;
+}
+.tip-card .content { flex: 1; }
+.tip-card h4 {
+  color: #fca5a5;
+  margin-bottom: 6px;
+  font-size: 1rem;
+}
+.tip-card p {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* ========== 折叠 ========== */
+details {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  padding: 0;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+summary {
+  padding: 16px 20px;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--gold);
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+}
+summary::-webkit-details-marker { display: none; }
+summary::after { content: '+'; font-size: 1.4rem; transition: transform 0.3s; }
+details[open] summary::after { transform: rotate(45deg); }
+details > div {
+  padding: 0 20px 20px;
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+/* ========== Footer ========== */
+footer {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-dim);
+  border-top: 1px solid rgba(148, 163, 184, 0.15);
+  margin-top: 40px;
+  font-size: 0.9rem;
+}
+
+/* ========== Leaflet popup 样式覆写 ========== */
+.leaflet-popup-content-wrapper {
+  background: rgba(15, 23, 42, 0.95);
+  color: var(--text);
+  border: 1px solid var(--card-border);
+}
+.leaflet-popup-tip { background: rgba(15, 23, 42, 0.95); }
+.leaflet-popup-content { color: var(--text); margin: 14px 16px; }
+.leaflet-popup-content b { color: var(--gold); }
+
+/* ========== 移动端 ========== */
+@media (max-width: 768px) {
+  .hero { padding: 50px 16px 40px; }
+  .hero h1 { font-size: 2.1rem; letter-spacing: 1px; }
+  .hero .subtitle { font-size: 1rem; }
+  .info-card { padding: 14px; }
+  .info-card .value { font-size: 1.3rem; }
+  .tab-btn { padding: 10px 22px; font-size: 0.95rem; }
+  section { padding: 40px 0; }
+  .section-title { font-size: 1.5rem; }
+  #map { height: 360px; min-height: 300px; }
+  .day-card { padding: 18px; }
+  .day-title { font-size: 1.2rem; }
+  .day-grid { grid-template-columns: 1fr; }
+  table { font-size: 0.85rem; }
+  table th, table td { padding: 8px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============== Hero ============== -->
+<header class="hero">
+  <div class="container">
+    <h1>新疆自驾游 · 4人攻略</h1>
+    <p class="subtitle">
+      <span class="badge">单司机友好</span>
+      <span class="badge">每日驾驶 ≤ 4 小时</span>
+      <span class="badge">深度慢游</span>
+    </p>
+
+    <div class="info-cards">
+      <div class="info-card">
+        <div class="label">行程天数</div>
+        <div class="value" id="info-days">5<span class="unit">天</span></div>
+      </div>
+      <div class="info-card">
+        <div class="label">出行人数</div>
+        <div class="value">4<span class="unit">人</span></div>
+      </div>
+      <div class="info-card">
+        <div class="label">总预算</div>
+        <div class="value">¥2万<span class="unit">/人均5K</span></div>
+      </div>
+      <div class="info-card">
+        <div class="label">最佳季节</div>
+        <div class="value" style="font-size:1.25rem;">6-9月</div>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active plan-a" data-plan="A" onclick="switchPlan('A')">方案 A · 5天精华</button>
+      <button class="tab-btn plan-b" data-plan="B" onclick="switchPlan('B')">方案 B · 7天伊犁</button>
+    </div>
+  </div>
+</header>
+
+<!-- ============== 路线地图 ============== -->
+<section class="container">
+  <h2 class="section-title">🗺️ 路线地图</h2>
+  <p class="section-desc">基于 OpenStreetMap，点击标记可查看景点详细信息。每日路线用不同颜色标注。</p>
+  <div class="map-wrap">
+    <div id="map"></div>
+    <div class="map-legend" id="legend"></div>
+  </div>
+</section>
+
+<!-- ============== 方案 A 5天 ============== -->
+<section class="container plan-content active" id="plan-A">
+  <h2 class="section-title">📅 方案 A · 5天精华浓缩版</h2>
+  <p class="section-desc">主题：吐鲁番 + 天池 + 乌鲁木齐周边 · 总驾驶约 1,200 km · 适合首次新疆 / 时间紧凑</p>
+
+  <!-- D1 -->
+  <div class="day-card">
+    <div class="day-header">
+      <div>
+        <div class="day-title"><span class="num">D1</span>抵达 · 乌鲁木齐市区</div>
+        <div class="day-meta">主题：边城风情 · 适应海拔与时差</div>
+      </div>
+      <span class="drive-tag safe">🚗 驾驶 0h ✅ 司机充分休息</span>
+    </div>
+    <div class="route-flow">
+      <span class="stop">地窝堡机场</span><span class="arrow">→</span>
+      <span class="stop">市区取车</span><span class="arrow">→</span>
+      <span class="stop">新疆博物馆</span><span class="arrow">→</span>
+      <span class="stop">国际大巴扎</span><span class="arrow">→</span>
+      <span class="stop">五一夜市</span>
+    </div>
+    <div class="day-grid">
+      <div class="day-block">
+        <h4>🏛️ 推荐景点</h4>
+        <ul>
+          <li><span>新疆维吾尔自治区博物馆<div class="meta">2-3h · 看楼兰美女</div></span><span class="price">免费</span></li>
+          <li><span>国际大巴扎<div class="meta">2h · 中亚风情</div></span><span class="price">免费</span></li>
+          <li><span>红山公园<div class="meta">1h · 城市景观</div></span><span class="price">免费</span></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <h4>🏨 4人住宿（含早）</h4>
+        <ul>
+          <li><span>亚朵 · 友好南路店<div class="meta">2间标准房</div></span><span class="price">¥480</span></li>
+          <li><span>全季 · 红山店<div class="meta">2间大床房</div></span><span class="price">¥420</span></li>
+          <li><span>桔子水晶 · 西大桥<div class="meta">商务标间</div></span><span class="price">¥520</span></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <h4>🍖 美食推荐</h4>
+        <ul>
+          <li><span>五一夜市<div class="meta">烤肉/抓饭/奶茶</div></span><span class="price">¥80/人</span></li>
+          <li><span>阿布拉的馕（友好南路）<div class="meta">现烤大馕</div></span><span class="price">¥10起</span></li>
+          <li><span>海尔巴格 · 大巴扎店<div class="meta">手抓饭+烤全羊</div></span><span class="price">¥120/人</span></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <h4>💰 当日预算（4人）</h4>
+        <ul>
+          <li><span>住宿</span><span class="price">¥480</span></li>
+          <li><span>餐饮</span><span class="price">¥360</span></li>
+          <li><span>门票</span><span class="price">¥0</span></li>
+          <li><span>市内停车 / 打车</span><span class="price">¥80</span></li>
+          <li><strong style="color:var(--gold)">合计</strong><span class="price">¥920</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="tip-box">
+      <strong>🚦 单司机贴士：</strong>抵达当天不安排长途，让司机调整时差（新疆比北京晚 2 小时，22:00 才天黑）。建议晚上 23:00 前入睡，明天早起出发吐鲁番。
+    </div>
+  </div>
+
+  <!-- D2 -->
+  <div class="day-card">
+    <div class="day-header">
+      <div>
+        <div class="day-title"><span class="num">D2</span>乌鲁木齐 → 吐鲁番</div>
+        <div class="day-meta">主题：火洲风情 · 千年遗迹与葡萄长廊</div>
+      </div>
+      <span class="drive-tag safe">🚗 驾驶 2.5h ✅ 单司机轻松</span>
+    </div>
+    <div class="route-flow">
+      <span class="stop">乌鲁木齐</span><span class="arrow">→</span>
+      <span class="stop">交河故城</span><span class="arrow">→</span>
+      <span class="stop">葡萄沟</span><span class="arrow">→</span>
+      <span class="stop">火焰山外围</span><span class="arrow">→</span>
+      <span class="stop">吐鲁番宿</span>
+    </div>
+    <div class="day-grid">
+      <div class="day-block">
+        <h4>🏛️ 推荐景点</h4>
+        <ul>
+          <li><span>交河故城<div class="meta">2h · 世界文化遗产</div></span><span class="price">¥70</span></li>
+          <li><span>葡萄沟<div class="meta">2-3h · 葡萄架避暑</div></span><span class="price">¥75</span></li>
+          <li><span>火焰山（路过观景）<div class="meta">30min · 拍照</div></span><span class="price">¥40</span></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <h4>🏨 4人住宿</h4>
+        <ul>
+          <li><span>吐鲁番丽橙酒店<div class="meta">2间豪华双床</div></span><span class="price">¥380</span></li>
+          <li><span>葡萄沟民宿（含早）<div class="meta">维吾尔风院落</div></span><span class="price">¥460</span></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <h4>🍖 美食推荐</h4>
+        <ul>
+          <li><span>高昌路夜市<div class="meta">烤包子/凉皮/拉条子</div></span><span class="price">¥60/人</span></li>
+          <li><span>葡萄园农家乐<div class="meta">大盘鸡+手抓饭</div></span><span class="price">¥110/人</span></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <h4>💰 当日预算（4人）</h4>
+        <ul>
+          <li><span>住宿</span><span class="price">¥460</span></li>
+          <li><span>餐饮</span><span class="price">¥520</span></li>
+          <li><span>门票</span><span class="price">¥740</span></li>
+          <li><span>油费 + 过路费</span><span class="price">¥260</span></li>
+          <li><strong style="color:var(--gold)">合计</strong><span class="price">¥1,980</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="tip-box">
+      <strong>🚦 单司机贴士：</strong>G30 京新高速一路平直，但夏季吐鲁番地表温度可达 70℃，<strong>11:00-16:00 避免长时间停车</strong>，开冷气车内补水。中途小草湖服务区可休息 15 分钟。
+    </div>
+  </div>
+
+  <!-- D3 -->
+  <div class="day-card">
+    <div class="day-header">
+      <div>
+        <div class="day-title"><span class="num">D3</span>吐鲁番 → 鄯善 → 吐鲁番</div>
+        <div class="day-meta">主题：库木塔格沙漠 · 大漠日落必体验</div>
+      </div>
+      <span class="drive-tag safe">🚗 驾驶 3h（往返）✅ 单司机可控</span>
+    </div>
+    <div class="route-flow">
+      <span class="stop">吐鲁番</span><span class="arrow">→</span>
+      <span class="stop">坎儿井民俗园</span><span class="arrow">→</span>
+      <span class="stop">鄯善 · 库木塔格沙漠</span><span class="arrow">→</span>
+      <span class="stop">吐鲁番宿</span>
+    </div>
+    <div class="day-grid">
+      <div class="day-block">
+        <h4>🏛️ 推荐景点</h4>
+        <ul>
+          <li><span>坎儿井民俗园<div class="meta">1.5h · 古代水利</div></span><span class="price">¥40</span></li>
+          <li><span>库木塔格沙漠（重头戏）<div class="meta">3-4h · 滑沙/骆驼/越野</div></span><span class="price">¥84</span></li>
+          <li><span>沙漠日落<div class="meta">观景塔上拍片</div></span><span class="price">含票</span></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <h4>🏜️ 沙漠玩法</h4>
+        <ul>
+          <li><span>滑沙板</span><span class="price">¥40</span></li>
+          <li><span>骆驼骑行</span><span class="price">¥80/人</span></li>
+          <li><span>越野车冲沙</span><span class="price">¥150/人</span></li>
+          <li><span>沙漠摩托</span><span class="price">¥120</span></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <h4>🍖 美食推荐</h4>
+        <ul>
+          <li><span>鄯善老城烤肉<div class="meta">10元/串大肉串</div></span><span class="price">¥70/人</span></li>
+          <li><span>沙漠边晚餐 · 维星<div class="meta">手抓饭+烤鱼</div></span><span class="price">¥100/人</span></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <h4>💰 当日预算（4人）</h4>
+        <ul>
+          <li><span>住宿（吐鲁番）</span><span class="price">¥380</span></li>
+          <li><span>餐饮</span><span class="price">¥680</span></li>
+          <li><span>门票 + 玩乐</span><span class="price">¥1,200</span></li>
+          <li><span>油费 + 过路费</span><span class="price">¥220</span></li>
+          <li><strong style="color:var(--gold)">合计</strong><span class="price">¥2,480</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="tip-box">
+      <strong>🚦 单司机贴士：</strong>沙漠玩到日落约 21:00，回吐鲁番需开夜车 1.5h，<strong>务必准备红牛 + 副驾盯导航</strong>。沙漠戈壁路段无路灯，远光灯 + 慢速。
+    </div>
+  </div>
+
+  <!-- D4 -->
+  <div class="day-card">
+    <div class="day-header">
+      <div>
+        <div class="day-title"><span class="num">D4</span>吐鲁番 → 天山天池 → 阜康</div>
+        <div class="day-meta">主题：博格达雪峰倒影 · 高原湖泊</div>
+      </div>
+      <span class="drive-tag warn">🚗 驾驶 4h ⚠️ 当日上限，需充足休息</span>
+    </div>
+    <div class="route-flow">
+      <span class="stop">吐鲁番</span><span class="arrow">→</span>
+      <span class="stop">达坂城风车阵</span><span class="arrow">→</span>
+      <span class="stop">天山天池</span><span class="arrow">→</span>
+      <span class="stop">阜康市</span>
+    </div>
+    <div class="day-grid">
+      <div class="day-block">
+        <h4>🏛️ 推荐景点</h4>
+        <ul>
+          <li><span>达坂城风车阵<div class="meta">30min · 路过停车拍照</div></span><span class="price">免费</span></li>
+          <li><span>天山天池<div class="meta">3-4h · 海拔1900m</div></span><span class="price">¥215</span></li>
+          <li><span>东小天池支线<div class="meta">含在大门票内</div></span><span class="price">含票</span></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <h4>🏨 4人住宿（阜康）</h4>
+        <ul>
+          <li><span>阜康汉庭酒店<div class="meta">2间标间</div></span><span class="price">¥360</span></li>
+          <li><span>天池脚下民宿<div class="meta">含早 · 山景房</div></span><span class="price">¥400</span></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <h4>🍖 美食推荐</h4>
+        <ul>
+          <li><span>天池景区餐厅<div class="meta">奶茶+烤包子</div></span><span class="price">¥80/人</span></li>
+          <li><span>阜康老街烤鱼<div class="meta">本地推荐</div></span><span class="price">¥100/人</span></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <h4>💰 当日预算（4人）</h4>
+        <ul>
+          <li><span>住宿</span><span class="price">¥400</span></li>
+          <li><span>餐饮</span><span class="price">¥520</span></li>
+          <li><span>门票</span><span class="price">¥860</span></li>
+          <li><span>油费 + 过路费</span><span class="price">¥320</span></li>
+          <li><strong style="color:var(--gold)">合计</strong><span class="price">¥2,100</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="tip-box">
+      <strong>🚦 单司机贴士：</strong>这是 5 天里最长的驾驶日，建议早上 8:00 出发吐鲁番。天池海拔较高，<strong>司机不要快速登山</strong>，山路弯多控制车速 40-60，避免疲劳。可在天池服务区午休 30 分钟。
+    </div>
+  </div>
+
+  <!-- D5 -->
+  <div class="day-card">
+    <div class="day-header">
+      <div>
+        <div class="day-title"><span class="num">D5</span>阜康 → 南山牧场 → 乌鲁木齐还车</div>
+        <div class="day-meta">主题：草原毡房 · 完美收官</div>
+      </div>
+      <span class="drive-tag safe">🚗 驾驶 3.5h ✅ 收官放松</span>
+    </div>
+    <div class="route-flow">
+      <span class="stop">阜康</span><span class="arrow">→</span>
+      <span class="stop">乌鲁木齐</span><span class="arrow">→</span>
+      <span class="stop">南山牧场</span><span class="arrow">→</span>
+      <span class="stop">机场还车</span>
+    </div>
+    <div class="day-grid">
+      <div class="day-block">
+        <h4>🏛️ 推荐景点</h4>
+        <ul>
+          <li><span>南山牧场<div class="meta">3h · 草原+毡房</div></span><span class="price">¥40</span></li>
+          <li><span>哈萨克毡房午餐<div class="meta">手抓肉+奶茶</div></span><span class="price">¥150/人</span></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <h4>✈️ 还车 + 离开</h4>
+        <ul>
+          <li><span>地窝堡机场还车<div class="meta">提前 1.5h 验车</div></span><span class="price">-</span></li>
+          <li><span>建议航班 18:00 后<div class="meta">留还车缓冲</div></span><span class="price">-</span></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <h4>🛍️ 伴手礼推荐</h4>
+        <ul>
+          <li><span>大巴扎 · 巴旦木 / 葡萄干</span><span class="price">¥100起</span></li>
+          <li><span>新疆和田玉枣</span><span class="price">¥80/盒</span></li>
+          <li><span>纯奶疙瘩 / 马奶酒</span><span class="price">¥60起</span></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <h4>💰 当日预算（4人）</h4>
+        <ul>
+          <li><span>毡房午餐</span><span class="price">¥600</span></li>
+          <li><span>门票</span><span class="price">¥160</span></li>
+          <li><span>油费 + 过路费</span><span class="price">¥200</span></li>
+          <li><span>伴手礼（4人）</span><span class="price">¥800</span></li>
+          <li><strong style="color:var(--gold)">合计</strong><span class="price">¥1,760</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="tip-box">
+      <strong>🚦 单司机贴士：</strong>还车前一定全车检查并加满油，机场还车油表要求与取车一致。预留 1 小时缓冲应对堵车，超过预定时间会扣费。
+    </div>
+  </div>
+</section>
+
+<!-- ============== 方案 B 7天 ============== -->
+<section class="container plan-content" id="plan-B">
+  <h2 class="section-title">📅 方案 B · 7天伊犁深度版</h2>
+  <p class="section-desc">主题：伊犁河谷深度游 · 总驾驶约 1,800 km · 推荐"飞乌鲁木齐 → 转动车/航班到伊宁 → 伊宁租车自驾"</p>
+
+  <!-- D1 -->
+  <div class="day-card">
+    <div class="day-header">
+      <div>
+        <div class="day-title"><span class="num">D1</span>抵达乌鲁木齐 → 转飞/动车伊宁</div>
+        <div class="day-meta">主题：长途跨段 · 节省时间</div>
+      </div>
+      <span class="drive-tag safe">🚗 驾驶 0h（不开车）</span>
+    </div>
+    <div class="route-flow">
+      <span class="stop">乌鲁木齐机场</span><span class="arrow">→</span>
+      <span class="stop">飞机/动车（4h）</span><span class="arrow">→</span>
+      <span class="stop">伊宁机场</span><span class="arrow">→</span>
+      <span class="stop">六星街</span>
+    </div>
+    <div class="day-grid">
+      <div class="day-block">
+        <h4>🚄 跨段交通选择</h4>
+        <ul>
+          <li><span>国航/南航直飞 1h<div class="meta">推荐 · 省时</div></span><span class="price">¥600/人</span></li>
+          <li><span>动车 5556 次 · 11h<div class="meta">夜间卧铺也可</div></span><span class="price">¥260/人</span></li>
+          <li><span>包车直达 · 12h<div class="meta">不推荐 · 太累</div></span><span class="price">¥3,000</span></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <h4>🏨 4人住宿（伊宁）</h4>
+        <ul>
+          <li><span>喀赞其民宿院落<div class="meta">维吾尔风格</div></span><span class="price">¥580</span></li>
+          <li><span>汉庭 · 伊宁解放路<div class="meta">2间标间</div></span><span class="price">¥420</span></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <h4>🍖 美食 · 六星街</h4>
+        <ul>
+          <li><span>哈萨克小屋餐厅<div class="meta">手风琴+俄式风味</div></span><span class="price">¥130/人</span></li>
+          <li><span>六星街冰淇淋<div class="meta">塔塔尔奶酒+老冰糕</div></span><span class="price">¥30/人</span></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <h4>💰 当日预算（4人）</h4>
+        <ul>
+          <li><span>转机/动车（4人）</span><span class="price">¥2,400</span></li>
+          <li><span>住宿</span><span class="price">¥580</span></li>
+          <li><span>餐饮</span><span class="price">¥520</span></li>
+          <li><strong style="color:var(--gold)">合计</strong><span class="price">¥3,500</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="tip-box">
+      <strong>🚦 单司机贴士：</strong>推荐订上午到乌鲁木齐 → 中午到伊宁的转机。司机当天<strong>完全休息</strong>，让明天更有精神。伊宁租车点很多，建议机场或市区取车。
+    </div>
+  </div>
+
+  <!-- D2 -->
+  <div class="day-card">
+    <div class="day-header">
+      <div>
+        <div class="day-title"><span class="num">D2</span>伊宁市区深度日</div>
+        <div class="day-meta">主题：东方小巴黎 · 民俗摄影</div>
+      </div>
+      <span class="drive-tag safe">🚗 驾驶 0h ✅ 步行+打车</span>
+    </div>
+    <div class="route-flow">
+      <span class="stop">六星街</span><span class="arrow">→</span>
+      <span class="stop">喀赞其民俗村</span><span class="arrow">→</span>
+      <span class="stop">伊犁河大桥</span><span class="arrow">→</span>
+      <span class="stop">日落晚餐</span>
+    </div>
+    <div class="day-grid">
+      <div class="day-block">
+        <h4>🏛️ 推荐景点</h4>
+        <ul>
+          <li><span>六星街<div class="meta">2h · 彩色门窗摄影</div></span><span class="price">免费</span></li>
+          <li><span>喀赞其民俗村<div class="meta">3h · 马车游</div></span><span class="price">¥120</span></li>
+          <li><span>伊犁河大桥<div class="meta">日落必拍</div></span><span class="price">免费</span></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <h4>📸 拍照点</h4>
+        <ul>
+          <li><span>蓝色门牌民居<div class="meta">六星街标志</div></span><span class="price">免费</span></li>
+          <li><span>百年老宅 · 亚历山大餐厅<div class="meta">可入内消费</div></span><span class="price">免费</span></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <h4>🍖 美食推荐</h4>
+        <ul>
+          <li><span>布拉克贝希烤肉<div class="meta">伊宁第一烤肉</div></span><span class="price">¥120/人</span></li>
+          <li><span>苏里坦塔吉克餐厅<div class="meta">羊肉抓饭</div></span><span class="price">¥90/人</span></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <h4>💰 当日预算（4人）</h4>
+        <ul>
+          <li><span>住宿</span><span class="price">¥580</span></li>
+          <li><span>餐饮</span><span class="price">¥720</span></li>
+          <li><span>门票</span><span class="price">¥480</span></li>
+          <li><span>市内打车</span><span class="price">¥120</span></li>
+          <li><strong style="color:var(--gold)">合计</strong><span class="price">¥1,900</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="tip-box">
+      <strong>🚦 单司机贴士：</strong>这是司机连续两天 0 驾驶日，给明天赛湖往返做体力储备。傍晚伊犁河大桥日落人很多，建议 19:30 到达占位置。
+    </div>
+  </div>
+
+  <!-- D3 -->
+  <div class="day-card">
+    <div class="day-header">
+      <div>
+        <div class="day-title"><span class="num">D3</span>伊宁 → 赛里木湖 → 伊宁</div>
+        <div class="day-meta">主题：大西洋的最后一滴眼泪</div>
+      </div>
+      <span class="drive-tag warn">🚗 驾驶 4h（往返）⚠️ 当日上限</span>
+    </div>
+    <div class="route-flow">
+      <span class="stop">伊宁</span><span class="arrow">→</span>
+      <span class="stop">果子沟大桥</span><span class="arrow">→</span>
+      <span class="stop">赛里木湖（环湖）</span><span class="arrow">→</span>
+      <span class="stop">果子沟</span><span class="arrow">→</span>
+      <span class="stop">伊宁</span>
+    </div>
+    <div class="day-grid">
+      <div class="day-block">
+        <h4>🏛️ 推荐景点</h4>
+        <ul>
+          <li><span>果子沟大桥<div class="meta">30min · 路过停车</div></span><span class="price">免费</span></li>
+          <li><span>赛里木湖<div class="meta">5-6h · 环湖90km</div></span><span class="price">¥140</span></li>
+          <li><span>湖边骑马 / 拍婚纱<div class="meta">可选</div></span><span class="price">¥80起</span></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <h4>🌊 环湖玩法</h4>
+        <ul>
+          <li><span>东大门 · 主入口</span><span class="price">含票</span></li>
+          <li><span>天鹅观景台</span><span class="price">含票</span></li>
+          <li><span>果子沟观景台</span><span class="price">含票</span></li>
+          <li><span>湖边野餐</span><span class="price">自备</span></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <h4>🍖 美食推荐</h4>
+        <ul>
+          <li><span>清水河镇午餐<div class="meta">途中加油站旁</div></span><span class="price">¥70/人</span></li>
+          <li><span>伊宁回程晚餐 · 大盘鸡<div class="meta">阿不都拉大盘鸡</div></span><span class="price">¥110/人</span></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <h4>💰 当日预算（4人）</h4>
+        <ul>
+          <li><span>住宿（伊宁）</span><span class="price">¥420</span></li>
+          <li><span>餐饮</span><span class="price">¥720</span></li>
+          <li><span>门票</span><span class="price">¥560</span></li>
+          <li><span>油费 + 过路费</span><span class="price">¥260</span></li>
+          <li><strong style="color:var(--gold)">合计</strong><span class="price">¥1,960</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="tip-box">
+      <strong>🚦 单司机贴士：</strong>赛湖往返驾驶分两段（去 2h + 回 2h），中午到达后让司机在湖边餐厅<strong>休息 1 小时</strong>再环湖。果子沟弯多坡陡，下坡用低档不要踩刹车。
+    </div>
+  </div>
+
+  <!-- D4 -->
+  <div class="day-card">
+    <div class="day-header">
+      <div>
+        <div class="day-title"><span class="num">D4</span>伊宁 → 那拉提</div>
+        <div class="day-meta">主题：伊犁河谷沿线 · 薰衣草</div>
+      </div>
+      <span class="drive-tag safe">🚗 驾驶 3.5h ✅ 边走边停</span>
+    </div>
+    <div class="route-flow">
+      <span class="stop">伊宁</span><span class="arrow">→</span>
+      <span class="stop">霍城薰衣草庄园</span><span class="arrow">→</span>
+      <span class="stop">巩留河谷</span><span class="arrow">→</span>
+      <span class="stop">那拉提镇</span>
+    </div>
+    <div class="day-grid">
+      <div class="day-block">
+        <h4>🏛️ 推荐景点</h4>
+        <ul>
+          <li><span>霍城薰衣草<div class="meta">6月底盛放，季节限定</div></span><span class="price">¥40</span></li>
+          <li><span>巩留河谷观景<div class="meta">途中停车</div></span><span class="price">免费</span></li>
+          <li><span>那拉提镇<div class="meta">入住准备明天</div></span><span class="price">-</span></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <h4>🏨 4人住宿（那拉提）</h4>
+        <ul>
+          <li><span>哈萨克毡房（含晚餐）<div class="meta">草原星空</div></span><span class="price">¥780</span></li>
+          <li><span>那拉提小镇酒店<div class="meta">2间标间 · 传统宿舍</div></span><span class="price">¥420</span></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <h4>🍖 美食推荐</h4>
+        <ul>
+          <li><span>毡房晚餐<div class="meta">手抓肉+奶茶+馕</div></span><span class="price">含住宿</span></li>
+          <li><span>那拉提镇烤全羊<div class="meta">需提前预订</div></span><span class="price">¥600/只</span></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <h4>💰 当日预算（4人）</h4>
+        <ul>
+          <li><span>住宿（含晚餐）</span><span class="price">¥780</span></li>
+          <li><span>午餐</span><span class="price">¥320</span></li>
+          <li><span>门票</span><span class="price">¥160</span></li>
+          <li><span>油费 + 过路费</span><span class="price">¥240</span></li>
+          <li><strong style="color:var(--gold)">合计</strong><span class="price">¥1,500</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="tip-box">
+      <strong>🚦 单司机贴士：</strong>G218 沿河谷而行，限速多变（60/80/100 切换），<strong>务必跟随导航限速</strong>。沿途有摄像头多。下午抵达毡房后司机即休息，晚餐时不饮酒。
+    </div>
+  </div>
+
+  <!-- D5 -->
+  <div class="day-card">
+    <div class="day-header">
+      <div>
+        <div class="day-title"><span class="num">D5</span>那拉提空中草原一日游</div>
+        <div class="day-meta">主题：天山深处的世外桃源</div>
+      </div>
+      <span class="drive-tag safe">🚗 驾驶 0h ✅ 景区内电瓶车</span>
+    </div>
+    <div class="route-flow">
+      <span class="stop">毡房早餐</span><span class="arrow">→</span>
+      <span class="stop">空中草原</span><span class="arrow">→</span>
+      <span class="stop">骑马 / 滑草</span><span class="arrow">→</span>
+      <span class="stop">回毡房</span>
+    </div>
+    <div class="day-grid">
+      <div class="day-block">
+        <h4>🏛️ 推荐玩法</h4>
+        <ul>
+          <li><span>那拉提景区<div class="meta">含电瓶车 6h</div></span><span class="price">¥225</span></li>
+          <li><span>空中草原观光<div class="meta">最高3000m</div></span><span class="price">含票</span></li>
+          <li><span>骑马 1 小时<div class="meta">哈萨克牧民带</div></span><span class="price">¥150/人</span></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <h4>🐎 草原活动</h4>
+        <ul>
+          <li><span>滑草</span><span class="price">¥80</span></li>
+          <li><span>射箭体验</span><span class="price">¥50</span></li>
+          <li><span>套马表演（限定时间）</span><span class="price">免费</span></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <h4>🍖 美食推荐</h4>
+        <ul>
+          <li><span>景区内毡房午餐<div class="meta">奶茶+包尔萨克</div></span><span class="price">¥80/人</span></li>
+          <li><span>毡房晚餐 · 烤羊腿<div class="meta">提前预订</div></span><span class="price">¥160/人</span></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <h4>💰 当日预算（4人）</h4>
+        <ul>
+          <li><span>住宿（含早晚餐）</span><span class="price">¥780</span></li>
+          <li><span>午餐</span><span class="price">¥320</span></li>
+          <li><span>门票 + 骑马</span><span class="price">¥1,500</span></li>
+          <li><strong style="color:var(--gold)">合计</strong><span class="price">¥2,600</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="tip-box">
+      <strong>🚦 单司机贴士：</strong>这天是连续第二个 0 驾驶日。司机在毡房充分睡眠（草原夜晚很冷需厚被）。海拔 2000+ 注意防晒，备保暖外套。
+    </div>
+  </div>
+
+  <!-- D6 -->
+  <div class="day-card">
+    <div class="day-header">
+      <div>
+        <div class="day-title"><span class="num">D6</span>那拉提 → 巴音布鲁克</div>
+        <div class="day-meta">主题：九曲十八弯日落 · 一生必看</div>
+      </div>
+      <span class="drive-tag safe">🚗 驾驶 2h ✅ 但需翻山越岭</span>
+    </div>
+    <div class="route-flow">
+      <span class="stop">那拉提</span><span class="arrow">→</span>
+      <span class="stop">独库公路 218 段</span><span class="arrow">→</span>
+      <span class="stop">巴音布鲁克镇</span><span class="arrow">→</span>
+      <span class="stop">九曲十八弯</span>
+    </div>
+    <div class="day-grid">
+      <div class="day-block">
+        <h4>🏛️ 推荐景点</h4>
+        <ul>
+          <li><span>巩乃斯林场（路过）<div class="meta">雪岭云杉</div></span><span class="price">免费</span></li>
+          <li><span>巴音布鲁克景区<div class="meta">3-4h · 含区间车</div></span><span class="price">¥160</span></li>
+          <li><span>九曲十八弯日落（22:00）<div class="meta">观景塔等机位</div></span><span class="price">含票</span></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <h4>🏨 4人住宿（巴音）</h4>
+        <ul>
+          <li><span>巴音镇民宿<div class="meta">2间标间</div></span><span class="price">¥380</span></li>
+          <li><span>蒙古包毡房<div class="meta">星空体验</div></span><span class="price">¥440</span></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <h4>🍖 美食推荐</h4>
+        <ul>
+          <li><span>巴音镇蒙古菜馆<div class="meta">手把肉</div></span><span class="price">¥110/人</span></li>
+          <li><span>奶皮子 + 砖茶<div class="meta">蒙族特色</div></span><span class="price">¥30/人</span></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <h4>💰 当日预算（4人）</h4>
+        <ul>
+          <li><span>住宿</span><span class="price">¥440</span></li>
+          <li><span>餐饮</span><span class="price">¥560</span></li>
+          <li><span>门票</span><span class="price">¥640</span></li>
+          <li><span>油费 + 过路费</span><span class="price">¥180</span></li>
+          <li><strong style="color:var(--gold)">合计</strong><span class="price">¥1,820</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="tip-box">
+      <strong>🚦 单司机贴士：</strong>独库公路 218 段是"中国最美公路"南段，但海拔 3000+，<strong>限速 40-60</strong>。可能高反，备葡萄糖。日落要等到 21:30-22:00，回酒店开夜车 30min，副驾盯路。
+    </div>
+  </div>
+
+  <!-- D7 -->
+  <div class="day-card">
+    <div class="day-header">
+      <div>
+        <div class="day-title"><span class="num">D7</span>巴音布鲁克 → 库车 → 飞回乌鲁木齐</div>
+        <div class="day-meta">主题：独库南段穿越 · 收官</div>
+      </div>
+      <span class="drive-tag warn">🚗 驾驶 4h ⚠️ 当日上限 · 山路</span>
+    </div>
+    <div class="route-flow">
+      <span class="stop">巴音布鲁克</span><span class="arrow">→</span>
+      <span class="stop">独库公路南段</span><span class="arrow">→</span>
+      <span class="stop">库车大峡谷</span><span class="arrow">→</span>
+      <span class="stop">库车机场还车</span>
+    </div>
+    <div class="day-grid">
+      <div class="day-block">
+        <h4>🏛️ 推荐景点</h4>
+        <ul>
+          <li><span>独库公路天山隧道<div class="meta">海拔3300m打卡</div></span><span class="price">免费</span></li>
+          <li><span>大小龙池<div class="meta">路过观景</div></span><span class="price">免费</span></li>
+          <li><span>库车天山大峡谷（可选）<div class="meta">2h</div></span><span class="price">¥75</span></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <h4>✈️ 还车 + 离开</h4>
+        <ul>
+          <li><span>库车站还车<div class="meta">异地还车有费</div></span><span class="price">¥800起</span></li>
+          <li><span>库车 → 乌鲁木齐航班<div class="meta">17:00 后</div></span><span class="price">¥500/人</span></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <h4>🍖 美食推荐</h4>
+        <ul>
+          <li><span>库车老城烤包子<div class="meta">10元/个</div></span><span class="price">¥40/人</span></li>
+          <li><span>库车大馕<div class="meta">手信首选</div></span><span class="price">¥20/张</span></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <h4>💰 当日预算（4人）</h4>
+        <ul>
+          <li><span>异地还车费</span><span class="price">¥800</span></li>
+          <li><span>库车 → 乌鲁木齐机票</span><span class="price">¥2,000</span></li>
+          <li><span>餐饮</span><span class="price">¥360</span></li>
+          <li><span>门票</span><span class="price">¥300</span></li>
+          <li><span>油费 + 过路费</span><span class="price">¥260</span></li>
+          <li><strong style="color:var(--gold)">合计</strong><span class="price">¥3,720</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="tip-box">
+      <strong>🚦 单司机贴士：</strong>独库南段约 220km，全程山路。<strong>务必早上 7:30 出发</strong>留足缓冲。中途必停 2 次（每 100km）。下午 14:00 前到库车开始还车流程。<strong>独库公路仅 6 月 - 9 月开放</strong>。
+    </div>
+  </div>
+</section>
+
+<!-- ============== 租车方案 ============== -->
+<section class="container">
+  <h2 class="section-title">🚙 租车方案</h2>
+  <p class="section-desc">4 人推荐选 5 座 SUV 合资品牌，舒适度与油耗平衡。强烈建议买不计免赔保险。</p>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>车型</th>
+          <th>代表车</th>
+          <th>日租金</th>
+          <th>5天总价</th>
+          <th>7天总价</th>
+          <th>4人推荐度</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>5座SUV · 国产</td>
+          <td>哈弗H6 / 长安CS75</td>
+          <td>¥350-450</td>
+          <td>¥1,750</td>
+          <td>¥2,450</td>
+          <td>★★★（性价比）</td>
+        </tr>
+        <tr style="background:rgba(16, 185, 129, 0.08);">
+          <td class="recommended">5座SUV · 合资</td>
+          <td class="recommended">汉兰达5座 / CRV / 奇骏</td>
+          <td class="recommended">¥600-800</td>
+          <td class="recommended">¥3,500</td>
+          <td class="recommended">¥4,900</td>
+          <td class="recommended">★★★★★（最佳）</td>
+        </tr>
+        <tr>
+          <td>7座商务</td>
+          <td>别克GL8 / 大众途昂</td>
+          <td>¥800-1100</td>
+          <td>¥4,500</td>
+          <td>¥6,300</td>
+          <td>★★★（4人空间过剩）</td>
+        </tr>
+        <tr>
+          <td>越野硬派</td>
+          <td>普拉多 / 三菱帕杰罗</td>
+          <td>¥1,000-1,400</td>
+          <td>¥5,500</td>
+          <td>¥7,700</td>
+          <td>★★★★（沙漠/独库优势）</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card-grid" style="margin-top:24px;">
+    <div class="mini-card">
+      <h3>🛡️ 必买保险</h3>
+      <ul>
+        <li><span class="name">不计免赔（推荐）</span><span class="price">¥120/天</span></li>
+        <li><span class="name">轮胎玻璃险</span><span class="price">¥30/天</span></li>
+        <li><span class="name">驾乘险</span><span class="price">¥20/天</span></li>
+      </ul>
+    </div>
+    <div class="mini-card">
+      <h3>📋 取还车要点</h3>
+      <ul>
+        <li><span class="name">取车点</span><span>乌鲁木齐机场</span></li>
+        <li><span class="name">备选</span><span>伊宁机场（方案B）</span></li>
+        <li><span class="name">押金</span><span class="price">¥6,000-10,000</span></li>
+        <li><span class="name">异地还车费</span><span class="price">¥800-1,500</span></li>
+      </ul>
+    </div>
+    <div class="mini-card">
+      <h3>🌐 推荐平台</h3>
+      <ul>
+        <li><span class="name">神州租车</span><span>正规连锁</span></li>
+        <li><span class="name">一嗨租车</span><span>新疆覆盖广</span></li>
+        <li><span class="name">本地车行</span><span>价格便宜30%</span></li>
+        <li><span class="name">凹凸租车</span><span>P2P个人车</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 美食地图 ============== -->
+<section class="container">
+  <h2 class="section-title">🍜 美食地图</h2>
+  <p class="section-desc">按城市划分的必吃清单，已剔除游客陷阱店。</p>
+  <div class="card-grid">
+    <div class="mini-card">
+      <h3>🏙️ 乌鲁木齐</h3>
+      <ul>
+        <li><span class="name">五一夜市<div class="meta">烤肉+酸奶</div></span><span class="price">¥80/人</span></li>
+        <li><span class="name">大巴扎美食街<div class="meta">游客也好吃</div></span><span class="price">¥100/人</span></li>
+        <li><span class="name">阿布拉的馕（友好南路）<div class="meta">现烤大馕</div></span><span class="price">¥10起</span></li>
+        <li><span class="name">海尔巴格<div class="meta">手抓饭+烤包子</div></span><span class="price">¥120/人</span></li>
+        <li><span class="name">塞外江南马肉熏马肠<div class="meta">本地特色</div></span><span class="price">¥90/人</span></li>
+      </ul>
+    </div>
+    <div class="mini-card">
+      <h3>🍇 吐鲁番</h3>
+      <ul>
+        <li><span class="name">高昌路夜市<div class="meta">烤包子+凉皮</div></span><span class="price">¥60/人</span></li>
+        <li><span class="name">葡萄园农家乐<div class="meta">大盘鸡</div></span><span class="price">¥110/人</span></li>
+        <li><span class="name">老吐鲁番饭店<div class="meta">手抓饭老字号</div></span><span class="price">¥80/人</span></li>
+      </ul>
+    </div>
+    <div class="mini-card">
+      <h3>🌹 伊宁</h3>
+      <ul>
+        <li><span class="name">六星街冰淇淋<div class="meta">塔塔尔老冰糕</div></span><span class="price">¥30/人</span></li>
+        <li><span class="name">布拉克贝希烤肉<div class="meta">伊宁第一</div></span><span class="price">¥120/人</span></li>
+        <li><span class="name">喀赞其民俗街<div class="meta">汤饭+馕坑肉</div></span><span class="price">¥90/人</span></li>
+        <li><span class="name">亚历山大餐厅<div class="meta">百年俄式建筑</div></span><span class="price">¥150/人</span></li>
+      </ul>
+    </div>
+    <div class="mini-card">
+      <h3>🐎 那拉提 / 巴音</h3>
+      <ul>
+        <li><span class="name">哈萨克毡房晚餐<div class="meta">手抓肉+奶茶</div></span><span class="price">¥160/人</span></li>
+        <li><span class="name">那拉提烤全羊<div class="meta">需预订</div></span><span class="price">¥600/只</span></li>
+        <li><span class="name">巴音蒙古菜馆<div class="meta">手把肉</div></span><span class="price">¥110/人</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 预算明细 ============== -->
+<section class="container">
+  <h2 class="section-title">💰 预算明细（4人合计）</h2>
+  <p class="section-desc">两套方案对比，最终落点 ¥20,000 左右，人均 ¥5,000。</p>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>项目</th>
+          <th>方案 A · 5天</th>
+          <th>方案 B · 7天</th>
+          <th>说明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>租车（含保险）</td><td class="price">¥4,500</td><td class="price">¥6,300</td><td>合资SUV + 不计免赔</td></tr>
+        <tr><td>油费</td><td class="price">¥800</td><td class="price">¥1,200</td><td>1,200 / 1,800 km</td></tr>
+        <tr><td>过路费</td><td class="price">¥400</td><td class="price">¥600</td><td>高速 + 景区</td></tr>
+        <tr><td>跨段交通</td><td class="price">¥0</td><td class="price">¥4,400</td><td>方案B含转机+回程</td></tr>
+        <tr><td>住宿</td><td class="price">¥2,200</td><td class="price">¥3,200</td><td>4人合住</td></tr>
+        <tr><td>门票 + 体验</td><td class="price">¥3,200</td><td class="price">¥3,400</td><td>含骑马/沙漠</td></tr>
+        <tr><td>餐饮</td><td class="price">¥3,000</td><td class="price">¥4,200</td><td>人均 150/天</td></tr>
+        <tr><td>伴手礼</td><td class="price">¥800</td><td class="price">¥800</td><td>葡萄干/巴旦木</td></tr>
+        <tr><td>机动金</td><td class="price">¥1,000</td><td class="price">¥1,200</td><td>意外应急</td></tr>
+        <tr style="background:rgba(251, 191, 36, 0.08);">
+          <td><strong>合计（4人）</strong></td>
+          <td class="price"><strong>¥15,900</strong></td>
+          <td class="price"><strong>¥25,300</strong></td>
+          <td>方案B含跨段</td>
+        </tr>
+        <tr style="background:rgba(251, 191, 36, 0.12);">
+          <td><strong>人均</strong></td>
+          <td class="price"><strong>¥3,975</strong></td>
+          <td class="price"><strong>¥6,325</strong></td>
+          <td>不含外地飞乌机票</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="margin-top:16px; color:var(--text-dim); font-size:0.9rem;">
+    💡 <strong>说明</strong>：方案 A 结余可用于升级酒店或加南山度假村；方案 B 因含跨段交通预算更高，但深度体验值得。两方案都不含从外地到乌鲁木齐的往返大交通。
+  </p>
+</section>
+
+<!-- ============== 单司机注意事项 ============== -->
+<section class="container">
+  <h2 class="section-title" style="color:#fca5a5;">⚠️ 单司机安全须知（必读）</h2>
+  <p class="section-desc">本攻略最重要的一节 · 4 人只有 1 司机意味着责任全在他/她身上</p>
+  <div class="tips-grid">
+    <div class="tip-card">
+      <div class="icon">⏱️</div>
+      <div class="content">
+        <h4>每天 ≤ 4 小时驾驶</h4>
+        <p>这是铁律，不可妥协。超出务必停车休息或调整行程。新疆地广人稀，疲劳驾驶后果严重。</p>
+      </div>
+    </div>
+    <div class="tip-card">
+      <div class="icon">😴</div>
+      <div class="content">
+        <h4>长距离前晚充足睡眠</h4>
+        <p>D3 沙漠路、D7 独库段前一晚务必睡足 8 小时，不饮酒不熬夜。</p>
+      </div>
+    </div>
+    <div class="tip-card">
+      <div class="icon">💊</div>
+      <div class="content">
+        <h4>常备药与衣物</h4>
+        <p>晕车药、葡萄糖、保暖衣（草原冷）、风衣、防晒霜 SPF50+、墨镜。</p>
+      </div>
+    </div>
+    <div class="tip-card">
+      <div class="icon">🔧</div>
+      <div class="content">
+        <h4>出发前车辆检查</h4>
+        <p>胎压、机油、冷却液、雨刷、备胎、千斤顶、灭火器、三角警示牌。</p>
+      </div>
+    </div>
+    <div class="tip-card">
+      <div class="icon">🛣️</div>
+      <div class="content">
+        <h4>每 100 km 必停</h4>
+        <p>高速服务区每 100 km 停车 10-15 分钟下车走动，洗脸或眯眼。</p>
+      </div>
+    </div>
+    <div class="tip-card">
+      <div class="icon">⛰️</div>
+      <div class="content">
+        <h4>山区慢行 · 限速 60 优先</h4>
+        <p>果子沟、独库公路弯多坡陡，下坡用低档不要踩刹车（容易热衰减）。</p>
+      </div>
+    </div>
+    <div class="tip-card">
+      <div class="icon">🗺️</div>
+      <div class="content">
+        <h4>副驾必清醒</h4>
+        <p>4 人轮流当副驾，不能 3 人都睡。副驾负责导航、限速提醒、递水。</p>
+      </div>
+    </div>
+    <div class="tip-card">
+      <div class="icon">📞</div>
+      <div class="content">
+        <h4>应急联系人</h4>
+        <p>保险公司电话、120、122、租车公司应急电话存好。新疆部分山区无信号。</p>
+      </div>
+    </div>
+    <div class="tip-card">
+      <div class="icon">⛽</div>
+      <div class="content">
+        <h4>油箱半满即加油</h4>
+        <p>新疆加油站间隔大，剩半箱就加。沙漠戈壁段一定满油出发。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 实用 Tips ============== -->
+<section class="container">
+  <h2 class="section-title">📌 实用 Tips</h2>
+  <div class="card-grid">
+    <div class="mini-card">
+      <h3>🛣️ 独库公路</h3>
+      <ul>
+        <li><span class="name">仅 6 月-9 月开放</span><span class="price">注意</span></li>
+        <li><span class="name">下雪即封闭</span><span>实时查询</span></li>
+        <li><span class="name">总长 561 km</span><span>南北段</span></li>
+      </ul>
+    </div>
+    <div class="mini-card">
+      <h3>📱 离线工具</h3>
+      <ul>
+        <li><span class="name">高德地图离线包</span><span>必下</span></li>
+        <li><span class="name">奥维互动地图</span><span>越野神器</span></li>
+        <li><span class="name">中国电信 / 移动信号</span><span>最好</span></li>
+      </ul>
+    </div>
+    <div class="mini-card">
+      <h3>🪪 证件 & 钱</h3>
+      <ul>
+        <li><span class="name">身份证不离身</span><span>所有检查站</span></li>
+        <li><span class="name">微信支付为主</span><span>覆盖广</span></li>
+        <li><span class="name">备 ¥2,000 现金</span><span>偏远地区</span></li>
+      </ul>
+    </div>
+    <div class="mini-card">
+      <h3>☀️ 防晒装备</h3>
+      <ul>
+        <li><span class="name">防晒霜 SPF50+</span><span>必备</span></li>
+        <li><span class="name">墨镜 + 防风衣</span><span>必备</span></li>
+        <li><span class="name">遮阳帽</span><span>戈壁必备</span></li>
+      </ul>
+    </div>
+    <div class="mini-card">
+      <h3>🕒 时差概念</h3>
+      <ul>
+        <li><span class="name">新疆比北京晚 2 小时</span><span>实际作息</span></li>
+        <li><span class="name">21:30 才天黑</span><span>玩到很晚</span></li>
+        <li><span class="name">餐厅 20:00 才营业</span><span>注意</span></li>
+      </ul>
+    </div>
+    <div class="mini-card">
+      <h3>📅 提前预订</h3>
+      <ul>
+        <li><span class="name">旺季提前 30-45 天</span><span>必备</span></li>
+        <li><span class="name">那拉提毡房</span><span>更早</span></li>
+        <li><span class="name">独库段酒店</span><span>提前60天</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 折叠 FAQ ============== -->
+<section class="container">
+  <h2 class="section-title">❓ 常见问答</h2>
+  <details>
+    <summary>取车需要哪些证件？</summary>
+    <div>主驾驶：身份证、驾照、信用卡（押金 6,000-10,000 元）。建议 4 人都带证件备查。租车公司会要求录像车况，仔细查划痕。</div>
+  </details>
+  <details>
+    <summary>新疆开车有哪些特别注意事项？</summary>
+    <div>1. 沿途有多个治安检查站，需要下车人证核验，正常配合即可；2. 限速摄像头多，严格按导航限速；3. 部分山区路段大型车多，超车要谨慎；4. 加油站较稀疏，剩半箱务必补给。</div>
+  </details>
+  <details>
+    <summary>如果 4 小时驾驶限制太紧怎么办？</summary>
+    <div>方案 A 仅 D4 接近 4h 上限，其他都低于。方案 B 部分日驾驶分两段（去+回），中间停留长时间。如真感疲劳可临时缩短行程，跳过非必看景点。建议预订时让酒店保留 1 天弹性退订。</div>
+  </details>
+  <details>
+    <summary>异地还车贵吗？方案 B 怎么办？</summary>
+    <div>异地还车费 800-1,500 元（库车-乌鲁木齐距离）。方案 B 推荐"伊宁取车 → 库车还车"，省去回程 800km 长途。或者"原车返回乌鲁木齐"则省异地费但多 1 天驾驶。</div>
+  </details>
+  <details>
+    <summary>取消政策是怎样的？</summary>
+    <div>租车一般提前 48h 免费取消；酒店多数是当天 18:00 前免费；门票景区一般是当日未使用可退。建议都买"免费取消"的灵活预订。</div>
+  </details>
+  <details>
+    <summary>4 人租房间怎么分？</summary>
+    <div>大多数酒店 2 间标间或 2 间大床房（适合 2 男 2 女 / 2 对）。哈萨克毡房可大通铺睡 4 人。喀赞其民俗村有 1 间 4 人间院落。</div>
+  </details>
+  <details>
+    <summary>独库公路自驾合适吗？</summary>
+    <div>方案 B 的 D6-D7 走独库南段（巴音 → 库车），约 220 km 山路。普通家用车可走，无需越野，但建议 SUV。冬季封闭，仅 6-9 月通车。出发前查"独库公路实时通行"小程序。</div>
+  </details>
+</section>
+
+<footer>
+  <p>新疆自驾游 · 4人攻略 · 单司机友好版</p>
+  <p style="margin-top:8px; font-size:0.85rem;">数据仅供参考，实际预订请以平台为准 · 旅行愉快 🌄</p>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+/* ========== 路线点位数据 ========== */
+const PLAN_A = {
+  color: '#3b82f6',
+  days: [
+    {
+      day: 'D1', color: '#ef4444', name: '乌鲁木齐市区',
+      points: [
+        { name: '乌鲁木齐地窝堡机场', lat: 43.9071, lng: 87.4742, info: '取车地点 · 全程起点' },
+        { name: '新疆维吾尔自治区博物馆', lat: 43.8195, lng: 87.5840, info: '免费 · 楼兰美女展品 · 停留 2-3h' },
+        { name: '红山公园', lat: 43.8091, lng: 87.6039, info: '免费 · 城市制高点 · 1h' },
+        { name: '国际大巴扎', lat: 43.7797, lng: 87.6181, info: '免费 · 中亚风情购物 · 2h' },
+      ]
+    },
+    {
+      day: 'D2', color: '#3b82f6', name: '吐鲁番',
+      points: [
+        { name: '吐鲁番交河故城', lat: 42.9486, lng: 89.0631, info: '¥70 · 世界遗产 · 2h' },
+        { name: '葡萄沟', lat: 42.9892, lng: 89.2089, info: '¥75 · 葡萄长廊 · 2-3h' },
+        { name: '火焰山', lat: 42.9386, lng: 89.7156, info: '¥40 · 路过观景拍照' },
+      ]
+    },
+    {
+      day: 'D3', color: '#10b981', name: '库木塔格沙漠',
+      points: [
+        { name: '坎儿井民俗园', lat: 42.9356, lng: 89.1797, info: '¥40 · 古代水利 · 1.5h' },
+        { name: '库木塔格沙漠', lat: 42.8631, lng: 90.2256, info: '¥84 · 滑沙/越野/日落 · 3-4h' },
+      ]
+    },
+    {
+      day: 'D4', color: '#fbbf24', name: '天山天池',
+      points: [
+        { name: '天山天池', lat: 43.8880, lng: 88.1365, info: '¥215 · 海拔1900m · 3-4h' },
+        { name: '阜康市', lat: 44.1583, lng: 87.9856, info: '当晚住宿点' },
+      ]
+    },
+    {
+      day: 'D5', color: '#a855f7', name: '南山牧场 · 还车',
+      points: [
+        { name: '南山牧场', lat: 43.4938, lng: 87.9728, info: '¥40 · 草原+毡房午餐 · 3h' },
+      ]
+    },
+  ]
+};
+
+const PLAN_B = {
+  color: '#10b981',
+  days: [
+    {
+      day: 'D1', color: '#ef4444', name: '抵伊宁',
+      points: [
+        { name: '伊宁机场', lat: 43.9558, lng: 81.3303, info: '从乌鲁木齐转机/动车抵达' },
+        { name: '六星街', lat: 43.9089, lng: 81.3261, info: '免费 · 彩色门窗 · 2h' },
+      ]
+    },
+    {
+      day: 'D2', color: '#3b82f6', name: '伊宁深度',
+      points: [
+        { name: '喀赞其民俗村', lat: 43.8989, lng: 81.3514, info: '¥120 · 马车游 · 3h' },
+      ]
+    },
+    {
+      day: 'D3', color: '#10b981', name: '赛里木湖',
+      points: [
+        { name: '果子沟大桥', lat: 44.4633, lng: 81.2014, info: '免费 · 路过观景 30min' },
+        { name: '赛里木湖', lat: 44.6233, lng: 81.1925, info: '¥140 · 环湖90km · 5-6h' },
+      ]
+    },
+    {
+      day: 'D4', color: '#fbbf24', name: '那拉提',
+      points: [
+        { name: '那拉提空中草原', lat: 43.3236, lng: 84.0394, info: '¥225 · 哈萨克毡房 · 入住' },
+      ]
+    },
+    {
+      day: 'D5', color: '#a855f7', name: '那拉提一日游',
+      points: [
+        { name: '那拉提空中草原', lat: 43.3236, lng: 84.0394, info: '¥225 含电瓶车 · 骑马 6h' },
+      ]
+    },
+    {
+      day: 'D6', color: '#ec4899', name: '巴音布鲁克',
+      points: [
+        { name: '巴音布鲁克九曲十八弯', lat: 43.0292, lng: 84.1500, info: '¥160 · 日落必看 22:00' },
+      ]
+    },
+    {
+      day: 'D7', color: '#06b6d4', name: '独库南段 → 库车',
+      points: [
+        { name: '独山子大峡谷参考点', lat: 44.3236, lng: 84.8631, info: '独库公路风景' },
+        { name: '库车', lat: 41.7203, lng: 82.9622, info: '还车 · 飞机回乌鲁木齐' },
+      ]
+    },
+  ]
+};
+
+/* ========== 地图初始化 ========== */
+let map;
+let mapLayers = []; // 存放当前所有 marker / polyline
+
+function initMap() {
+  map = L.map('map', {
+    zoomControl: true,
+    scrollWheelZoom: true,
+  }).setView([43.5, 86], 6);
+
+  // 用深色地图瓦片
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; OpenStreetMap &copy; CARTO',
+    subdomains: 'abcd',
+    maxZoom: 19,
+  }).addTo(map);
+
+  drawPlan('A');
+}
+
+/* ========== 绘制方案 ========== */
+function drawPlan(plan) {
+  // 清除旧图层
+  mapLayers.forEach(l => map.removeLayer(l));
+  mapLayers = [];
+
+  const data = plan === 'A' ? PLAN_A : PLAN_B;
+  const allCoords = [];
+  const legendEl = document.getElementById('legend');
+  legendEl.innerHTML = '';
+
+  data.days.forEach(d => {
+    const dayCoords = d.points.map(p => [p.lat, p.lng]);
+    allCoords.push(...dayCoords);
+
+    // marker
+    d.points.forEach((p, i) => {
+      const icon = L.divIcon({
+        html: `<div style="background:${d.color}; color:#fff; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.78rem; border:2px solid #fff; box-shadow:0 2px 8px rgba(0,0,0,0.5);">${d.day.replace('D','')}</div>`,
+        iconSize: [28, 28],
+        className: '',
+      });
+      const m = L.marker([p.lat, p.lng], { icon }).addTo(map);
+      m.bindPopup(`
+        <b>${p.name}</b><br/>
+        <span style="color:#94a3b8;">${d.day} · ${d.name}</span><br/>
+        <small>${p.info}</small>
+      `);
+      mapLayers.push(m);
+    });
+
+    // polyline 当日路线
+    if (dayCoords.length > 1) {
+      const line = L.polyline(dayCoords, {
+        color: d.color,
+        weight: 3,
+        opacity: 0.85,
+        dashArray: '6, 8',
+      }).addTo(map);
+      mapLayers.push(line);
+    }
+
+    // 图例
+    const item = document.createElement('div');
+    item.className = 'legend-item';
+    item.innerHTML = `<span class="legend-dot" style="background:${d.color}"></span>${d.day} · ${d.name}`;
+    legendEl.appendChild(item);
+  });
+
+  // 自动缩放到所有点
+  if (allCoords.length) {
+    map.fitBounds(allCoords, { padding: [40, 40] });
+  }
+}
+
+/* ========== Tab 切换 ========== */
+function switchPlan(plan) {
+  // 按钮
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.plan === plan);
+  });
+  // 内容
+  document.querySelectorAll('.plan-content').forEach(c => {
+    c.classList.toggle('active', c.id === 'plan-' + plan);
+  });
+  // 信息卡天数
+  document.getElementById('info-days').innerHTML = (plan === 'A' ? '5' : '7') + '<span class="unit">天</span>';
+  // 地图重绘
+  drawPlan(plan);
+}
+
+/* ========== 启动 ========== */
+window.addEventListener('DOMContentLoaded', initMap);
+</script>
+
+</body>
+</html>
