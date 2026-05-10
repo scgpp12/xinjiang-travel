@@ -500,15 +500,19 @@ footer {
   <div class="container">
     <h1>新疆自驾游 · 4人攻略</h1>
     <p class="subtitle">
+      <span class="badge">10/1 - 10/7 国庆黄金周</span>
       <span class="badge">单司机友好</span>
       <span class="badge">每日驾驶 ≤ 4 小时</span>
-      <span class="badge">深度慢游</span>
     </p>
 
     <div class="info-cards">
       <div class="info-card">
+        <div class="label">出行日期</div>
+        <div class="value" id="info-date" style="font-size:1.25rem;">10/1 - 10/7</div>
+      </div>
+      <div class="info-card">
         <div class="label">行程天数</div>
-        <div class="value" id="info-days">5<span class="unit">天</span></div>
+        <div class="value" id="info-days">7<span class="unit">天</span></div>
       </div>
       <div class="info-card">
         <div class="label">出行人数</div>
@@ -518,15 +522,16 @@ footer {
         <div class="label">总预算</div>
         <div class="value">¥2万<span class="unit">/人均5K</span></div>
       </div>
-      <div class="info-card">
-        <div class="label">最佳季节</div>
-        <div class="value" style="font-size:1.25rem;">6-9月</div>
-      </div>
+    </div>
+
+    <!-- 国庆黄金周警示 -->
+    <div style="max-width:760px; margin:0 auto 28px; padding:16px 20px; background:rgba(220,38,38,0.12); border:1px solid rgba(220,38,38,0.4); border-radius:12px; color:#fecaca; font-size:0.95rem; text-align:left;">
+      <strong style="color:#fca5a5;">⚠️ 国庆黄金周特别提醒：</strong>10/1-10/7 是新疆旅游全年最高峰，必须提前 <strong>60 天</strong>预订租车 + 酒店 + 景区门票 + 来回大交通。租车价格约比平时上浮 <strong>40-60%</strong>，热门民宿（喀赞其、那拉提毡房）会提前 90 天售罄。建议错峰：10/1-10/2 在乌鲁木齐过渡，10/3 后再前往热门景区。10 月初昼夜温差大（白天 15℃ / 夜晚 0℃），高海拔已开始下雪，<strong>独库公路可能突发封闭</strong>，需备保暖衣 + B 计划。
     </div>
 
     <div class="tabs">
-      <button class="tab-btn active plan-a" data-plan="A" onclick="switchPlan('A')">方案 A · 5天精华</button>
-      <button class="tab-btn plan-b" data-plan="B" onclick="switchPlan('B')">方案 B · 7天伊犁</button>
+      <button class="tab-btn plan-a" data-plan="A" onclick="switchPlan('A')">方案 A · 5天精华 (10/1-10/5)</button>
+      <button class="tab-btn active plan-b" data-plan="B" onclick="switchPlan('B')">方案 B · 7天伊犁 (10/1-10/7) ⭐</button>
     </div>
   </div>
 </header>
@@ -542,7 +547,7 @@ footer {
 </section>
 
 <!-- ============== 方案 A 5天 ============== -->
-<section class="container plan-content active" id="plan-A">
+<section class="container plan-content" id="plan-A">
   <h2 class="section-title">📅 方案 A · 5天精华浓缩版</h2>
   <p class="section-desc">主题：吐鲁番 + 天池 + 乌鲁木齐周边 · 总驾驶约 1,200 km · 适合首次新疆 / 时间紧凑</p>
 
@@ -551,7 +556,7 @@ footer {
     <div class="day-header">
       <div>
         <div class="day-title"><span class="num">D1</span>抵达 · 乌鲁木齐市区</div>
-        <div class="day-meta">主题：边城风情 · 适应海拔与时差</div>
+        <div class="day-meta">10/1（周四 · 国庆当天）· 主题：边城风情 · 适应海拔与时差</div>
       </div>
       <span class="drive-tag safe">🚗 驾驶 0h ✅ 司机充分休息</span>
     </div>
@@ -608,7 +613,7 @@ footer {
     <div class="day-header">
       <div>
         <div class="day-title"><span class="num">D2</span>乌鲁木齐 → 吐鲁番</div>
-        <div class="day-meta">主题：火洲风情 · 千年遗迹与葡萄长廊</div>
+        <div class="day-meta">10/2（周五）· 主题：火洲风情 · 千年遗迹与葡萄长廊</div>
       </div>
       <span class="drive-tag safe">🚗 驾驶 2.5h ✅ 单司机轻松</span>
     </div>
@@ -663,7 +668,7 @@ footer {
     <div class="day-header">
       <div>
         <div class="day-title"><span class="num">D3</span>吐鲁番 → 鄯善 → 吐鲁番</div>
-        <div class="day-meta">主题：库木塔格沙漠 · 大漠日落必体验</div>
+        <div class="day-meta">10/3（周六）· 主题：库木塔格沙漠 · 大漠日落必体验</div>
       </div>
       <span class="drive-tag safe">🚗 驾驶 3h（往返）✅ 单司机可控</span>
     </div>
@@ -719,7 +724,7 @@ footer {
     <div class="day-header">
       <div>
         <div class="day-title"><span class="num">D4</span>吐鲁番 → 天山天池 → 阜康</div>
-        <div class="day-meta">主题：博格达雪峰倒影 · 高原湖泊</div>
+        <div class="day-meta">10/4（周日）· 主题：博格达雪峰倒影 · 高原湖泊</div>
       </div>
       <span class="drive-tag warn">🚗 驾驶 4h ⚠️ 当日上限，需充足休息</span>
     </div>
@@ -773,7 +778,7 @@ footer {
     <div class="day-header">
       <div>
         <div class="day-title"><span class="num">D5</span>阜康 → 南山牧场 → 乌鲁木齐还车</div>
-        <div class="day-meta">主题：草原毡房 · 完美收官</div>
+        <div class="day-meta">10/5（周一）· 主题：草原毡房 · 完美收官</div>
       </div>
       <span class="drive-tag safe">🚗 驾驶 3.5h ✅ 收官放松</span>
     </div>
@@ -824,7 +829,7 @@ footer {
 </section>
 
 <!-- ============== 方案 B 7天 ============== -->
-<section class="container plan-content" id="plan-B">
+<section class="container plan-content active" id="plan-B">
   <h2 class="section-title">📅 方案 B · 7天伊犁深度版</h2>
   <p class="section-desc">主题：伊犁河谷深度游 · 总驾驶约 1,800 km · 推荐"飞乌鲁木齐 → 转动车/航班到伊宁 → 伊宁租车自驾"</p>
 
@@ -833,7 +838,7 @@ footer {
     <div class="day-header">
       <div>
         <div class="day-title"><span class="num">D1</span>抵达乌鲁木齐 → 转飞/动车伊宁</div>
-        <div class="day-meta">主题：长途跨段 · 节省时间</div>
+        <div class="day-meta">10/1（周四 · 国庆当天）· 主题：长途跨段 · 节省时间</div>
       </div>
       <span class="drive-tag safe">🚗 驾驶 0h（不开车）</span>
     </div>
@@ -886,7 +891,7 @@ footer {
     <div class="day-header">
       <div>
         <div class="day-title"><span class="num">D2</span>伊宁市区深度日</div>
-        <div class="day-meta">主题：东方小巴黎 · 民俗摄影</div>
+        <div class="day-meta">10/2（周五）· 主题：东方小巴黎 · 民俗摄影</div>
       </div>
       <span class="drive-tag safe">🚗 驾驶 0h ✅ 步行+打车</span>
     </div>
@@ -940,7 +945,7 @@ footer {
     <div class="day-header">
       <div>
         <div class="day-title"><span class="num">D3</span>伊宁 → 赛里木湖 → 伊宁</div>
-        <div class="day-meta">主题：大西洋的最后一滴眼泪</div>
+        <div class="day-meta">10/3（周六）· 主题：大西洋的最后一滴眼泪</div>
       </div>
       <span class="drive-tag warn">🚗 驾驶 4h（往返）⚠️ 当日上限</span>
     </div>
@@ -997,7 +1002,7 @@ footer {
     <div class="day-header">
       <div>
         <div class="day-title"><span class="num">D4</span>伊宁 → 那拉提</div>
-        <div class="day-meta">主题：伊犁河谷沿线 · 薰衣草</div>
+        <div class="day-meta">10/4（周日）· 主题：伊犁河谷沿线（10月薰衣草已凋谢，看金色秋林）</div>
       </div>
       <span class="drive-tag safe">🚗 驾驶 3.5h ✅ 边走边停</span>
     </div>
@@ -1051,7 +1056,7 @@ footer {
     <div class="day-header">
       <div>
         <div class="day-title"><span class="num">D5</span>那拉提空中草原一日游</div>
-        <div class="day-meta">主题：天山深处的世外桃源</div>
+        <div class="day-meta">10/5（周一）· 主题：天山深处的世外桃源</div>
       </div>
       <span class="drive-tag safe">🚗 驾驶 0h ✅ 景区内电瓶车</span>
     </div>
@@ -1105,7 +1110,7 @@ footer {
     <div class="day-header">
       <div>
         <div class="day-title"><span class="num">D6</span>那拉提 → 巴音布鲁克</div>
-        <div class="day-meta">主题：九曲十八弯日落 · 一生必看</div>
+        <div class="day-meta">10/6（周二）· 主题：九曲十八弯日落 · 一生必看</div>
       </div>
       <span class="drive-tag safe">🚗 驾驶 2h ✅ 但需翻山越岭</span>
     </div>
@@ -1159,7 +1164,7 @@ footer {
     <div class="day-header">
       <div>
         <div class="day-title"><span class="num">D7</span>巴音布鲁克 → 库车 → 飞回乌鲁木齐</div>
-        <div class="day-meta">主题：独库南段穿越 · 收官</div>
+        <div class="day-meta">10/7（周三 · 假期最后一天）· 主题：独库南段穿越 · 收官</div>
       </div>
       <span class="drive-tag warn">🚗 驾驶 4h ⚠️ 当日上限 · 山路</span>
     </div>
@@ -1541,7 +1546,7 @@ footer {
 
 <footer>
   <p>新疆自驾游 · 4人攻略 · 单司机友好版</p>
-  <p style="margin-top:8px; font-size:0.85rem;">数据仅供参考，实际预订请以平台为准 · 旅行愉快 🌄</p>
+  <p style="margin-top:8px; font-size:0.85rem;">出行日期 10/1 - 10/7（国庆黄金周）· 数据仅供参考，实际预订请以平台为准 · 旅行愉快 🌄</p>
 </footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -1658,7 +1663,7 @@ function initMap() {
     maxZoom: 19,
   }).addTo(map);
 
-  drawPlan('A');
+  drawPlan('B');
 }
 
 /* ========== 绘制方案 ========== */
@@ -1726,8 +1731,9 @@ function switchPlan(plan) {
   document.querySelectorAll('.plan-content').forEach(c => {
     c.classList.toggle('active', c.id === 'plan-' + plan);
   });
-  // 信息卡天数
+  // 信息卡天数 + 日期
   document.getElementById('info-days').innerHTML = (plan === 'A' ? '5' : '7') + '<span class="unit">天</span>';
+  document.getElementById('info-date').innerHTML = (plan === 'A' ? '10/1 - 10/5' : '10/1 - 10/7');
   // 地图重绘
   drawPlan(plan);
 }
